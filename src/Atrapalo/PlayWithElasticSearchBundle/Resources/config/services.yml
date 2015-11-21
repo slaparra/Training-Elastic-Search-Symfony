@@ -1,0 +1,7 @@
+parameters:
+#    atrapalo_play_with_elastic_search.example.class: Atrapalo\PlayWithElasticSearchBundle\Example
+
+services:
+#    atrapalo_play_with_elastic_search.example:
+#        class: %atrapalo_play_with_elastic_search.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

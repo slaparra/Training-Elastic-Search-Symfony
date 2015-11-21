@@ -1,0 +1,15 @@
+elastic_index:
+    path:     /
+    defaults: { _controller: AtrapaloPlayWithElasticSearchBundle:Default:index }
+
+elastic_index_document:
+    path:    /index/
+    defaults: { _controller: AtrapaloPlayWithElasticSearchBundle:Default:indexDocument }
+
+elastic_get_document:
+    path:    /get/
+    defaults: { _controller: AtrapaloPlayWithElasticSearchBundle:Default:getDocument }
+
+elastic_search_document:
+    path:    /search/
+    defaults: { _controller: AtrapaloPlayWithElasticSearchBundle:Default:searchDocument }
