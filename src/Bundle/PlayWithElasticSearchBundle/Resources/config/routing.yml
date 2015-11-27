@@ -1,0 +1,3 @@
+elastica_index:
+    path:     /
+    defaults: { _controller: AtrapaloPlayWithElasticSearchBundle:Default:index }

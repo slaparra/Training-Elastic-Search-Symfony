@@ -1,6 +1,6 @@
 <?php
 
-namespace Atrapalo\PlayWithElasticSearchBundle;
+namespace Bundle\PlayWithElasticSearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

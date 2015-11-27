@@ -1,6 +1,6 @@
 <?php
 
-namespace Atrapalo\PlayWithElasticSearchBundle\DependencyInjection;
+namespace Bundle\PlayWithElasticSearchBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

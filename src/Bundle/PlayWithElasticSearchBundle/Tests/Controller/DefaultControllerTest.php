@@ -1,6 +1,6 @@
 <?php
 
-namespace Atrapalo\PlayWithElasticSearchBundle\Tests\Controller;
+namespace Bundle\PlayWithElasticSearchBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

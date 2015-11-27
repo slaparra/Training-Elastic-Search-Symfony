@@ -1,6 +1,6 @@
 <?php
 
-namespace Atrapalo\PlayWithElasticSearchBundle\DependencyInjection;
+namespace Bundle\PlayWithElasticSearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
