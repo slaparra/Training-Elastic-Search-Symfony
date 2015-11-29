@@ -1,0 +1,22 @@
+{% extends "PlayWithElasticSearchBundle:Playlists:base.html.twig" %}
+
+{% block title "Available Playlists" %}
+
+{% block content %}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Playlist name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for playlist in playlists %}
+        <tr>
+            <td>{{ playlist.id }}</td>
+            <td><a href="{{ path("app_playlist_tracks", { "id": playlist.id }) }}"><strong>{{ playlist.name }}</strong></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

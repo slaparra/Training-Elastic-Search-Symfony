@@ -1,0 +1,32 @@
+{% extends "PlayWithElasticSearchBundle:Playlists:index.html.twig" %}
+
+{% block page_header_title track.name|capitalize %}
+{% block page_header_subtitle "track details" %}
+
+{% block content %}
+<dl>
+    <dt>Name</dt>
+    <dd>{{ track.name }}</dd>
+
+    <dt>Album title</dt>
+    <dd>{{ track.album.title }}</dd>
+
+    <dt>Media Type</dt>
+    <dd>{{ track.mediaType.name }}</dd>
+
+    <dt>Genre</dt>
+    <dd>{{ track.genre.name }}</dd>
+
+    <dt>Composer</dt>
+    <dd>{{ track.composer }}</dd>
+
+    <dt>Milliseconds</dt>
+    <dd>{{ track.milliseconds }}</dd>
+
+    <dt>Bytes</dt>
+    <dd>{{ track.bytes }}</dd>
+
+    <dt>Unit Price</dt>
+    <dd>{{ track.unitPrice }}</dd>
+</dl>
+{% endblock %}

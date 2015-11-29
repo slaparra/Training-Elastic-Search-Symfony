@@ -1,0 +1,25 @@
+{% extends "PlayWithElasticSearchBundle:Playlists:index.html.twig" %}
+
+{% block page_header_title "\"" ~ playlist.name|capitalize ~ "\" playlist" %}
+{% block page_header_subtitle "tracks" %}
+
+{% block content %}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Composer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for track in playlist.tracks %}
+        <tr>
+            <td>{{ track.id }}</td>
+            <td><a href="{{ path("app_playlists_track", { "id": playlist.id, "trackId": track.id }) }}">{{ track.name }}</a></td>
+            <td>{{ track.composer }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
