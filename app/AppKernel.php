@@ -17,7 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
-            new Bundle\PlayWithElasticSearchBundle\AtrapaloPlayWithElasticSearchBundle(),
+            new Bundle\PlayWithElasticSearchBundle\PlayWithElasticSearchBundle(),
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle()
         );
 
