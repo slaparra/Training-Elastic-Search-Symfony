@@ -1,4 +1,4 @@
 atrapalo_play_with_elastic_search:
-    resource: "@AtrapaloPlayWithElasticSearchBundle/Resources/config/routing.yml"
+    resource: "@PlayWithElasticSearchBundle/Resources/config/routing.yml"
     prefix:   /
 

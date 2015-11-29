@@ -1,3 +1,13 @@
 elastica_index:
     path:     /
-    defaults: { _controller: AtrapaloPlayWithElasticSearchBundle:Default:index }
+    defaults: { _controller: PlayWithElasticSearchBundle:Default:index }
+
+
+app_playlist_tracks:
+    path:     /{id}/tracks
+    defaults: { _controller: PlayWithElasticSearchBundle:Default:tracks }
+
+
+app_playlists_track:
+    path:     /{id}/tracks/{trackId}
+    defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
