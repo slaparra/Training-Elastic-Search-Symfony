@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="Playlist", uniqueConstraints={@ORM\UniqueConstraint(name="IPK_Playlist", columns={"PlaylistId"})})
  * @ORM\Entity(repositoryClass="PlaylistRepository")
+ * @ORM\Cache(usage="READ_ONLY")
  */
 class Playlist
 {

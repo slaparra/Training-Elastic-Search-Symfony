@@ -57,6 +57,14 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        # enable metadata caching
+        metadata_cache_driver: redis
+        # enable query caching
+        query_cache_driver: redis
+        result_cache_driver:
+            type: redis
+            host: localhost
+            instance_class: Redis
 
 # Swiftmailer Configuration
 swiftmailer:

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="Track", uniqueConstraints={@ORM\UniqueConstraint(name="IPK_Track", columns={"TrackId"})}, indexes={@ORM\Index(name="IFK_TrackMediaTypeId", columns={"MediaTypeId"}), @ORM\Index(name="IFK_TrackGenreId", columns={"GenreId"}), @ORM\Index(name="IFK_TrackAlbumId", columns={"AlbumId"})})
  * @ORM\Entity(repositoryClass="TrackRepository")
+ * @ORM\Cache(usage="READ_ONLY")
  */
 class Track
 {

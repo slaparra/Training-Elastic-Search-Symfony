@@ -9,8 +9,8 @@
     "require": {
         "php": ">=5.3.9",
         "symfony/symfony": "^2.8@dev",
-        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/dbal": "<2.5",
+        "doctrine/orm": "^2.5",
+        "doctrine/dbal": "2.5.*",
         "doctrine/doctrine-bundle": "~1.4",
         "twig/extensions": "~1.0",
         "symfony/assetic-bundle": "~2.3",
@@ -23,7 +23,8 @@
         "ruflin/elastica": "2.*",
         "friendsofsymfony/elastica-bundle": "~3.0",
         "guzzle/guzzle": "^3.9",
-        "twig/twig": "^1.23"
+        "twig/twig": "^1.23",
+        "predis/predis": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
