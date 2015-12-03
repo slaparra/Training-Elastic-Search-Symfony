@@ -35,7 +35,7 @@ class Playlist
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Bundle\PlayWithElasticSearchBundle\Entity\Track")
+     * @ORM\ManyToMany(targetEntity="Bundle\PlayWithElasticSearchBundle\Entity\Track", fetch="EAGER")
      * @ORM\JoinTable(
      *      name="PlaylistTrack",
      *      joinColumns={@ORM\JoinColumn(name="PlaylistId", referencedColumnName="PlaylistId")},
