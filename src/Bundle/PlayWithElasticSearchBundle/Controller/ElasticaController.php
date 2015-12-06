@@ -21,6 +21,55 @@ class ElasticaController extends Controller
         $this->elasticaClient = new Client();
     }
 
+
+    public function addDocumentAction()
+    {
+        /** @var Index $elasticaIndex */
+        $elasticaIndex = $this->elasticaClient->getIndex('playlist');
+
+        $id = time();
+
+        return $this->render(
+            'PlayWithElasticSearchBundle:Elastica:add-document.html.twig',
+            ['document' => $this->addTrackDocument($id, $elasticaIndex)]
+        );
+    }
+
+    /**
+     * @param integer $id
+     * @param Index   $elasticaIndex
+     *
+     * @return \Elastica\Document
+     */
+    public function addTrackDocument($id, $elasticaIndex)
+    {
+        $elasticaType = $elasticaIndex->getType('track');
+
+        // Create a document
+        $track = array(
+            'id'       => $id,
+            'album'    => array(
+                'id'    => time(),
+                'title' => 'Cookie Monster'
+            ),
+            'name'     => 'Me wish there were expression for cookies like there is for apples. "A cookie a day make the doctor diagnose you with diabetes" not catchy.',
+            'composer' => 'composer packagist',
+            '_boost'   => 1.0
+        );
+
+        // First parameter is the id of document.
+        $trackDocument = new \Elastica\Document($id, $track);
+
+        // Add track to type
+        $elasticaType->addDocument($trackDocument);
+
+        // Refresh Index
+        $elasticaType->getIndex()->refresh();
+
+        return $trackDocument;
+
+    }
+
     public function createIndexAction()
     {
         /** @var Index $elasticaIndex */

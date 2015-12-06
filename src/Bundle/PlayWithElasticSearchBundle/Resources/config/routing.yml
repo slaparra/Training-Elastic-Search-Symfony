@@ -13,6 +13,11 @@ app_playlists_track:
     defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
 
 
-elastica_connect:
+elastica_create_index:
     path:     /elastica/create-index
     defaults: { _controller: PlayWithElasticSearchBundle:Elastica:createIndex }
+
+
+elastica_add_document:
+    path:     /elastica/add-track-document
+    defaults: { _controller: PlayWithElasticSearchBundle:Elastica:addDocument }

@@ -1,9 +1,7 @@
 {% extends "PlayWithElasticSearchBundle:Playlists:base.html.twig" %}
 
-{% block title "Index created info" %}
+{% block title "Add track document" %}
 
 {% block content %}
-    {{ client | ladybug_dump }}
-    {{ index | ladybug_dump }}
-    {{ mapping | ladybug_dump }}
+    {{ document | ladybug_dump }}
 {% endblock %}

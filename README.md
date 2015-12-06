@@ -47,7 +47,7 @@ Elasticsearch is a distributed RESTful search engine built for the cloud. Featur
 
 Run Elastic Search:
 <pre>
-~ $ elasticsearch (mac)
+~ $ sudo elasticsearch (mac)
 or
 ~ $ sudo /etc/init.d/elasticsearch start
 </pre>
