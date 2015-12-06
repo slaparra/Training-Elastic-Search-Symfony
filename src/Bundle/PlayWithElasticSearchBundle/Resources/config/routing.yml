@@ -11,3 +11,8 @@ app_playlist_tracks:
 app_playlists_track:
     path:     /{id}/tracks/{trackId}
     defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
+
+
+elastica_connect:
+    path:     /elastica/create-index
+    defaults: { _controller: PlayWithElasticSearchBundle:Elastica:createIndex }
