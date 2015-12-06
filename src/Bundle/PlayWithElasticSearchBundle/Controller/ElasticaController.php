@@ -1,6 +1,9 @@
 <?php
 
 namespace Bundle\PlayWithElasticSearchBundle\Controller;
+
+use Elastica\Client;
+use Elastica\Index;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -10,28 +13,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class ElasticaController extends Controller
 {
+    /** @var Client */
+    private $elasticaClient;
+
+    public function __construct()
+    {
+        $this->elasticaClient = new Client();
+    }
+
     public function createIndexAction()
     {
-        $elasticaIndex = $this->createElasticaIndex();
+        /** @var Index $elasticaIndex */
+        $elasticaIndex = $this->elasticaClient->getIndex('playlist');
+
+        $this->createElasticaIndex($elasticaIndex);
+        $this->createMapping($elasticaIndex);
 
         return $this->render(
             'PlayWithElasticSearchBundle:Elastica:index-created.html.twig',
-            ['index' => $elasticaIndex]
+            [
+                'client'  => $elasticaIndex->getClient(),
+                'index'   => $elasticaIndex,
+                'mapping' => $elasticaIndex->getMapping()
+            ]
         );
     }
 
     /**
-     * @return \Elastica\Index
+     * @param Index $elasticaIndex
      */
-    private function createElasticaIndex()
+    private function createElasticaIndex(Index $elasticaIndex)
     {
-        $elasticaClient = new \Elastica\Client();
-
-        // Load index
-        $elasticaIndex = $elasticaClient->getIndex('playlist');
-
         // Create the index new
-        return $elasticaIndex->create(
+        $elasticaIndex->create(
             array(
                 'number_of_shards'   => 4,
                 'number_of_replicas' => 1,
@@ -58,5 +72,44 @@ class ElasticaController extends Controller
             ),
             true //The argument is an OPTIONAL bool=> (true) Deletes index first if already exists (default = false)
         );
+    }
+
+    /**
+     * @param Index $elasticaIndex
+     */
+    public function createMapping(Index $elasticaIndex)
+    {
+        //Create a type
+        $elasticaType = $elasticaIndex->getType('track');
+
+        // Define mapping
+        $mapping = new \Elastica\Type\Mapping();
+        $mapping->setType($elasticaType);
+        $mapping->setParam('index_analyzer', 'indexAnalyzer');
+        $mapping->setParam('search_analyzer', 'searchAnalyzer');
+
+        // Define boost field
+        $mapping->setParam('_boost', array('name' => '_boost', 'null_value' => 1.0));
+
+        // Set mapping
+        $mapping->setProperties(
+            array(
+                'id'       => array('type' => 'integer', 'include_in_all' => false),
+                'album'    => array(
+                    'type'       => 'object',
+                    'properties' => array(
+                        'id'    => array('type' => 'integer', 'include_in_all' => true),
+                        'title' => array('type' => 'string', 'include_in_all' => true)
+                    ),
+                ),
+                'name'     => array('type' => 'string', 'include_in_all' => true),
+                'composer' => array('type' => 'string', 'include_in_all' => true),
+                '_boost'   => array('type' => 'float', 'include_in_all' => false)
+            )
+        );
+
+        // Send mapping to type
+        $mapping->send();
+
     }
 }
