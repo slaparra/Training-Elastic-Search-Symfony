@@ -21,3 +21,7 @@ elastica_create_index:
 elastica_add_document:
     path:     /elastica/add-track-document
     defaults: { _controller: PlayWithElasticSearchBundle:Elastica:addDocument }
+
+elastica_search:
+    path:     /elastica/search
+    defaults: { _controller: PlayWithElasticSearchBundle:Elastica:search }

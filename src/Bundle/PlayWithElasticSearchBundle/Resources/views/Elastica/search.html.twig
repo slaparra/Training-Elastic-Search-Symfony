@@ -1,0 +1,11 @@
+{% extends "PlayWithElasticSearchBundle:Playlists:base.html.twig" %}
+
+{% block title "Search track" %}
+
+{% block content %}
+    {{ query | ladybug_dump }}
+    {{ numberOfEntries | ladybug_dump }}
+    {{ resultSet | ladybug_dump }}
+    {{ results | ladybug_dump }}
+    {{ totalResults | ladybug_dump }}
+{% endblock %}
