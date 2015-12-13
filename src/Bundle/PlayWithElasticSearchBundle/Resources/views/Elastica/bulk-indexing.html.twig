@@ -1,0 +1,7 @@
+{% extends "PlayWithElasticSearchBundle:Playlists:base.html.twig" %}
+
+{% block title "Bulk Indexing" %}
+
+{% block content %}
+    {{ documents | ladybug_dump }}
+{% endblock %}

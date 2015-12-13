@@ -102,6 +102,32 @@ class ElasticaController extends Controller
         );
     }
 
+    public function tracksBulkIndexerAction()
+    {
+        $trackRepository = $this->get('track_repository');
+        $tracks = $trackRepository->findAll();
+
+        $documents = [];
+        /** @var Track $track */
+        foreach($tracks as $track) { // Fetching content from the database
+            $documents[] = $this->addTrackDocument(
+                $track->getId(),
+                $track->getName(),
+                $track->getComposer(),
+                $track->getAlbum()->getId(),
+                $track->getAlbum()->getTitle()
+            );
+        }
+
+        $this->trackType->addDocuments($documents);
+        $this->trackType->getIndex()->refresh();
+
+        return $this->render(
+            'PlayWithElasticSearchBundle:Elastica:bulk-indexing.html.twig',
+            ['documents' => $documents]
+        );
+    }
+
 
     /**
      * @param integer $id

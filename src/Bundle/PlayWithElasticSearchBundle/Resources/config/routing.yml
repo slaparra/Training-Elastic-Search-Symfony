@@ -2,21 +2,17 @@ elastica_index:
     path:     /
     defaults: { _controller: PlayWithElasticSearchBundle:Default:index }
 
-
 app_playlist_tracks:
     path:     /{id}/tracks
     defaults: { _controller: PlayWithElasticSearchBundle:Default:tracks }
-
 
 app_playlists_track:
     path:     /{id}/tracks/{trackId}
     defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
 
-
 elastica_create_index:
     path:     /elastica/create-index
     defaults: { _controller: PlayWithElasticSearchBundle:Elastica:createIndex }
-
 
 elastica_add_document:
     path:     /elastica/add-track-document
@@ -25,3 +21,7 @@ elastica_add_document:
 elastica_search:
     path:     /elastica/search
     defaults: { _controller: PlayWithElasticSearchBundle:Elastica:search }
+
+elastica_bulk_indexing:
+    path: /elastica/bulk-indexing
+    defaults: {_controller: PlayWithElasticSearchBundle:Elastica:tracksBulkIndexer }
