@@ -2,6 +2,7 @@
 
 namespace Bundle\PlayWithElasticSearchBundle\Controller;
 
+use Bundle\PlayWithElasticSearchBundle\Entity\Track;
 use Elastica\Client;
 use Elastica\Index;
 use Elastica\Query;
@@ -19,19 +20,26 @@ class ElasticaController extends Controller
     /** @var Client */
     private $elasticaClient;
 
+    /** @var Index */
+    private $playListIndex;
+
+    /** @var \Elastica\Type  */
+    private $trackType;
+
     public function __construct()
     {
         $this->elasticaClient = new Client();
+        $this->playListIndex  = $this->elasticaClient->getIndex('playlist');
+        $this->trackType      = $this->playListIndex->getType('track');
     }
 
     public function searchAction()
     {
-        $playListIndex = $this->elasticaClient->getIndex('playlist');
-        $trackType     = $playListIndex->getType('track');
-        $search        = new Search($this->elasticaClient);
+        $trackType = $this->playListIndex->getType('track');
+        $search    = new Search($this->elasticaClient);
 
         $search
-            ->addIndex($playListIndex)
+            ->addIndex($this->playListIndex)
             ->addType($trackType);
 
         $query = new Query();
@@ -62,7 +70,7 @@ class ElasticaController extends Controller
         $numberOfEntries = $search->count();
         $results         = $resultSet->getResults();
         $totalResults    = $resultSet->getTotalHits();
-        
+
         return $this->render(
             'PlayWithElasticSearchBundle:Elastica:search.html.twig',
             [
@@ -77,86 +85,82 @@ class ElasticaController extends Controller
 
     public function addDocumentAction()
     {
-        /** @var Index $elasticaIndex */
-        $elasticaIndex = $this->elasticaClient->getIndex('playlist');
-
         $id = time();
+        $albumId = time() + 1;
+
+        $trackDocument = $this->addTrackDocument($id, 'fake name', 'fake composer', $albumId, 'fake album title');
+
+        // Add track to type
+        $this->trackType->addDocument($trackDocument);
+
+        // Refresh Index
+        $this->trackType->getIndex()->refresh();
 
         return $this->render(
             'PlayWithElasticSearchBundle:Elastica:add-document.html.twig',
-            ['document' => $this->addTrackDocument($id, $elasticaIndex)]
+            ['document' => $trackDocument]
         );
     }
 
+
     /**
      * @param integer $id
-     * @param Index   $elasticaIndex
+     * @param string  $name
+     * @param string  $composer
+     * @param integer $albumId
+     * @param string  $albumTitle
      *
      * @return \Elastica\Document
      */
-    public function addTrackDocument($id, $elasticaIndex)
+    public function addTrackDocument($id, $name, $composer, $albumId, $albumTitle)
     {
-        $elasticaType = $elasticaIndex->getType('track');
-
         // Create a document
         $track = array(
             'id'       => $id,
             'album'    => array(
-                'id'    => time(),
-                'title' => 'Cookie Monster'
+                'id'    => $albumId,
+                'title' => $albumTitle
             ),
-            'name'     => 'Me wish there were expression for cookies like there is for apples. "A cookie a day make the doctor diagnose you with diabetes" not catchy.',
-            'composer' => 'composer packagist',
+            'name'     => $name,
+            'composer' => $composer,
             '_boost'   => 1.0
         );
 
         // First parameter is the id of document.
-        $trackDocument = new \Elastica\Document($id, $track);
-
-        // Add track to type
-        $elasticaType->addDocument($trackDocument);
-
-        // Refresh Index
-        $elasticaType->getIndex()->refresh();
-
-        return $trackDocument;
+        return new \Elastica\Document($id, $track);
 
     }
 
     public function createIndexAction()
     {
-        /** @var Index $elasticaIndex */
-        $elasticaIndex = $this->elasticaClient->getIndex('playlist');
-
-        $this->createElasticaIndex($elasticaIndex);
-        $this->createMapping($elasticaIndex);
+        $this->createPlaylistIndex();
+        $this->createMapping();
 
         return $this->render(
             'PlayWithElasticSearchBundle:Elastica:index-created.html.twig',
             [
-                'client'  => $elasticaIndex->getClient(),
-                'index'   => $elasticaIndex,
-                'mapping' => $elasticaIndex->getMapping()
+                'client'  => $this->playListIndex->getClient(),
+                'index'   => $this->playListIndex,
+                'mapping' => $this->playListIndex->getMapping()
             ]
         );
     }
 
-    /**
-     * @param Index $elasticaIndex
-     */
-    private function createElasticaIndex(Index $elasticaIndex)
+    private function createPlaylistIndex()
     {
         // Create the index new
-        $elasticaIndex->create(
+        $this->playListIndex->create(
             array(
                 'number_of_shards'   => 4,
                 'number_of_replicas' => 1,
                 'analysis'           => array(
                     'analyzer' => array(
                         'indexAnalyzer'  => array(
-                            'type'      => 'custom',
+                            'type'      => 'snowball',
                             'tokenizer' => 'standard',
-                            'filter'    => array('lowercase', 'mySnowball')
+                            'filter'    => array('lowercase', 'mySnowball'),
+                            'language'  => 'Spanish',
+                            'stopwords' => 'de, en, el, a'
                         ),
                         'searchAnalyzer' => array(
                             'type'      => 'custom',
@@ -176,17 +180,11 @@ class ElasticaController extends Controller
         );
     }
 
-    /**
-     * @param Index $elasticaIndex
-     */
-    public function createMapping(Index $elasticaIndex)
+    public function createMapping()
     {
-        //Create a type
-        $elasticaType = $elasticaIndex->getType('track');
-
         // Define mapping
         $mapping = new \Elastica\Type\Mapping();
-        $mapping->setType($elasticaType);
+        $mapping->setType($this->trackType);
         $mapping->setParam('index_analyzer', 'indexAnalyzer');
         $mapping->setParam('search_analyzer', 'searchAnalyzer');
 
@@ -212,6 +210,5 @@ class ElasticaController extends Controller
 
         // Send mapping to type
         $mapping->send();
-
     }
 }
