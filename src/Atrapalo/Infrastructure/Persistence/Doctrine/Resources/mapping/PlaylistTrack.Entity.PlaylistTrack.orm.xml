@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Chinook\Store\Domain\PlaylistTrack" table="PlaylistTrack">
+        <indexes>
+            <index name="IFK_PlaylistTrackTrackId" columns="TrackId"/>
+        </indexes>
+
+        <unique-constraints>
+            <unique-constraint name="IPK_PlaylistTrack" columns="PlaylistId,TrackId"/>
+        </unique-constraints>
+        
+        <id name="playlistId" type="integer" column="PlaylistId">
+            <generator strategy="NONE" />
+        </id>
+        <id name="trackId" type="integer" column="TrackId">
+            <generator strategy="NONE" />
+        </id>
+    </entity>
+
+</doctrine-mapping>

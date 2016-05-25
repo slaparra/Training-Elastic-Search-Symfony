@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Atrapalo\Domain\Model\Album\Entity\Album" table="Album">
+        <!-- Indexes -->
+        <indexes>
+            <index name="IFK_AlbumArtistId" columns="ArtistId"/>
+        </indexes>
+        <unique-constraints>
+            <unique-constraint name="IPK_Album" columns="AlbumId"/>
+        </unique-constraints>
+
+        <!-- Fields -->
+        <id name="id" type="integer" column="AlbumId">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="title" type="string" column="Title" length="160" nullable="false"/>
+
+        <!-- Relations -->
+        <one-to-many target-entity="Atrapalo\Domain\Model\Track\Entity\Track" mapped-by="album" field="tracks" />
+
+        <many-to-one target-entity="Atrapalo\Domain\Model\Artist\Entity\Artist" field="artist">
+            <join-column name="ArtistId" referenced-column-name="ArtistId" />
+        </many-to-one>
+
+    </entity>
+
+</doctrine-mapping>

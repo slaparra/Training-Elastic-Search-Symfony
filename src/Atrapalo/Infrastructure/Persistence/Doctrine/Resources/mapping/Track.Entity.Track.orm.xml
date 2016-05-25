@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Atrapalo\Domain\Model\Track\Entity\Track" table="Track">
+        <indexes>
+            <index name="IFK_TrackMediaTypeId" columns="MediaTypeId"/>
+            <index name="IFK_TrackGenreId" columns="GenreId"/>
+            <index name="IFK_TrackAlbumId" columns="AlbumId"/>
+        </indexes>
+
+        <unique-constraints>
+            <unique-constraint name="IPK_Track" columns="TrackId"/>
+        </unique-constraints>
+
+        <id name="id" type="integer" column="TrackId">
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="name" type="string" column="Name" length="200" nullable="false"/>
+        <field name="composer" type="string" column="Composer" length="220" nullable="true"/>
+        <field name="milliseconds" type="integer" column="Milliseconds" nullable="false"/>
+        <field name="bytes" type="integer" column="Bytes" nullable="true"/>
+        <field name="unitPrice" type="decimal" column="UnitPrice" precision="10" scale="2" nullable="false"/>
+
+        <one-to-one field="mediaType" target-entity="Atrapalo\Domain\Model\MediaType\Entity\MediaType">
+            <join-column name="MediaTypeId" referenced-column-name="MediaTypeId" />
+        </one-to-one>
+
+        <one-to-one field="genre" target-entity="Atrapalo\Domain\Model\Genre\Entity\Genre">
+            <join-column name="GenreId" referenced-column-name="GenreId" />
+        </one-to-one>
+
+        <many-to-one target-entity="Atrapalo\Domain\Model\Album\Entity\Album" field="album" inversed-by="tracks">
+            <join-column name="AlbumId" referenced-column-name="AlbumId" />
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>

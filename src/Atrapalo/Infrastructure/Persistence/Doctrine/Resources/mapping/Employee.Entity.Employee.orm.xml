@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Atrapalo\Domain\Model\Employee\Entity\Employee" table="Employee">
+        <indexes>
+            <index name="IFK_EmployeeReportsTo" columns="ReportsTo"/>
+        </indexes>
+        <unique-constraints>
+            <unique-constraint name="IPK_Employee" columns="EmployeeId"/>
+        </unique-constraints>
+
+        <id name="id" type="integer" column="EmployeeId">
+            <generator strategy="IDENTITY" />
+        </id>
+
+        <field name="lastName" type="string" column="LastName" length="20" nullable="false"/>
+        <field name="firstName" type="string" column="FirstName" length="20" nullable="false"/>
+        <field name="title" type="string" column="Title" length="30" nullable="true"/>
+        <field name="birthdate" type="datetime" column="BirthDate" nullable="true"/>
+        <field name="hiredate" type="datetime" column="HireDate" nullable="true"/>
+        <field name="address" type="string" column="Address" length="70" nullable="true"/>
+        <field name="city" type="string" column="City" length="40" nullable="true"/>
+        <field name="state" type="string" column="State" length="40" nullable="true"/>
+        <field name="country" type="string" column="Country" length="40" nullable="true"/>
+        <field name="postalCode" type="string" column="PostalCode" length="10" nullable="true"/>
+        <field name="phone" type="string" column="Phone" length="24" nullable="true"/>
+        <field name="fax" type="string" column="Fax" length="24" nullable="true"/>
+        <field name="email" type="string" column="Email" length="60" nullable="true"/>
+
+        <one-to-one field="superior" target-entity="Atrapalo\Domain\Model\Employee\Entity\Employee">
+            <join-columns>
+                <join-column name="ReportsTo" referenced-column-name="EmployeeId" />
+            </join-columns>
+        </one-to-one>
+        <one-to-many target-entity="Atrapalo\Domain\Model\Customer\Entity\Customer" mapped-by="supporterEmployee" field="servedCustomers" />
+    </entity>
+
+</doctrine-mapping>

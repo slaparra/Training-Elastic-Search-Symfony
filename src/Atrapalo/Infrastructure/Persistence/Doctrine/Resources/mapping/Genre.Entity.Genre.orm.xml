@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Atrapalo\Domain\Model\Genre\Entity\Genre" table="Genre">
+        <unique-constraints>
+            <unique-constraint name="IPK_Genre" columns="GenreId"/>
+        </unique-constraints>
+        <id name="id" type="integer" column="GenreId">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="name" type="string" column="Name" length="120" nullable="true"/>
+    </entity>
+
+</doctrine-mapping>

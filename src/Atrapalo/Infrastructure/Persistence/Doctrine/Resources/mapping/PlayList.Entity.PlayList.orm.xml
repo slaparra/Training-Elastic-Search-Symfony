@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Atrapalo\Domain\Model\PlayList\Entity\PlayList" table="Playlist">
+        <unique-constraints>
+            <unique-constraint name="IPK_Playlist" columns="PlaylistId"/>
+        </unique-constraints>
+
+        <id name="id" type="integer" column="PlaylistId">
+            <generator strategy="IDENTITY" />
+        </id>
+
+        <field name="name" type="string" column="Name" length="120" nullable="true"/>
+
+        <many-to-many target-entity="Atrapalo\Domain\Model\Track\Entity\Track" field="tracks">
+            <join-table name="PlaylistTrack">
+                <join-columns>
+                    <join-column name="PlaylistId" referenced-column-name="PlaylistId" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="TrackId" referenced-column-name="TrackId" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Chinook\Store\Domain\Customer" table="Customer">
+        <indexes>
+            <index name="IFK_CustomerSupportRepId" columns="SupportRepId"/>
+        </indexes>
+
+        <unique-constraints>
+            <unique-constraint name="IPK_Customer" columns="CustomerId"/>
+        </unique-constraints>
+
+        <id name="id" type="integer" column="CustomerId">
+            <generator strategy="IDENTITY" />
+        </id>
+
+        <field name="firstName" type="string" column="FirstName" length="40" nullable="false"/>
+        <field name="lastName" type="string" column="LastName" length="20" nullable="false"/>
+        <field name="company" type="string" column="Company" length="80" nullable="true"/>
+        <field name="address" type="string" column="Address" length="70" nullable="true"/>
+        <field name="city" type="string" column="City" length="40" nullable="true"/>
+        <field name="state" type="string" column="State" length="40" nullable="true"/>
+        <field name="country" type="string" column="Country" length="40" nullable="true"/>
+        <field name="postalCode" type="string" column="PostalCode" length="10" nullable="true"/>
+        <field name="phone" type="string" column="Phone" length="24" nullable="true"/>
+        <field name="fax" type="string" column="Fax" length="24" nullable="true"/>
+        <field name="email" type="string" column="Email" length="60" nullable="false"/>
+
+        <one-to-many target-entity="Atrapalo\Domain\Model\Invoice\Entity\Invoice" mapped-by="customer" field="invoices" />
+        <many-to-one target-entity="Atrapalo\Domain\Model\Employee\Entity\Employee" field="supporterEmployee">
+            <join-column name="SupportRepId" referenced-column-name="EmployeeId" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Atrapalo\Domain\Model\InvoiceLine\Entity\InvoiceLine" table="InvoiceLine">
+        <indexes>
+            <index name="IFK_InvoiceLineTrackId" columns="TrackId"/>
+            <index name="IFK_InvoiceLineInvoiceId" columns="InvoiceId"/>
+        </indexes>
+        <unique-constraints>
+            <unique-constraint name="IPK_InvoiceLine" columns="InvoiceLineId"/>
+        </unique-constraints>
+
+        <id name="id" column="InvoiceId" type="integer">
+            <generator strategy="NONE" />
+        </id>
+
+        <id name="trackId" column="TrackId" type="integer">
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="unitPrice" type="decimal" column="UnitPrice" precision="10" scale="2" nullable="false"/>
+        <field name="quantity" type="integer" column="Quantity" nullable="false"/>
+    </entity>
+
+</doctrine-mapping>
