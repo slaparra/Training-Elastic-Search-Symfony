@@ -57,14 +57,13 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
-        # enable metadata caching
-        metadata_cache_driver: redis
-        # enable query caching
-        query_cache_driver: redis
-        result_cache_driver:
-            type: redis
-            host: localhost
-            instance_class: Redis
+        mappings:
+            PlayList:
+                type:      xml
+                dir:       "%kernel.root_dir%/../src/atrapalo/Infrastructure/Persistence/Doctrine/Resources/mapping"
+                alias:     PlayList
+                prefix:    Atrapalo\Domain\Model
+                is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:

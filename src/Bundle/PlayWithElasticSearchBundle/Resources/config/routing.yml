@@ -3,11 +3,11 @@ elastica_index:
     defaults: { _controller: PlayWithElasticSearchBundle:Default:index }
 
 app_playlist_tracks:
-    path:     /{id}/tracks
+    path:     /playlist/{id}/tracks
     defaults: { _controller: PlayWithElasticSearchBundle:Default:tracks }
 
 app_playlists_track:
-    path:     /{id}/tracks/{trackId}
+    path:     /playlist/{id}/tracks/{trackId}
     defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
 
 elastica_create_index:
