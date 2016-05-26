@@ -2,14 +2,15 @@ parameters:
 #    atrapalo_play_with_elastic_search.example.class: Atrapalo\PlayWithElasticSearchBundle\Example
 
 services:
-    playlist_repository:
-        class: Bundle\PlayWithElasticSearchBundle\Entity\PlaylistRepository
-        factory: [@doctrine, "getRepository"]
+    doctrine_entity_repository:
+        class: Atrapalo\Infrastructure\Persistence\Doctrine\DoctrineEntityRepository
         arguments:
-            - "PlayWithElasticSearchBundle:Playlist"
+            - "@doctrine.orm.entity_manager"
+
+    playlist_repository:
+        class: Atrapalo\Infrastructure\Model\PlayList\Repository\PlayListRepositoryImpl
+        parent: "doctrine_entity_repository"
 
     track_repository:
-        class: Bundle\PlayWithElasticSearchBundle\Entity\TrackRepository
-        factory: [@doctrine, "getRepository"]
-        arguments:
-            - "PlayWithElasticSearchBundle:Track"
+        class: Atrapalo\Infrastructure\Model\Track\Repository\TrackRepositoryImpl
+        parent: "doctrine_entity_repository"
