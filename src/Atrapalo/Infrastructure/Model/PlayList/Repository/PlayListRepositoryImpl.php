@@ -28,9 +28,6 @@ class PlayListRepositoryImpl extends DoctrineEntityRepository implements PlayLis
 
         $query = $queryBuilder->getQuery();
 
-//        $query->useQueryCache(true);
-//        $query->useResultCache(true, 3600);
-
-        return $query->getSingleResult();
+        return $query->getOneOrNullResult();
     }
 }

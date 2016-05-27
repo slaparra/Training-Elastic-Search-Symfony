@@ -2,33 +2,36 @@
 
 namespace Bundle\PlayWithElasticSearchBundle\Controller;
 
+use Atrapalo\Application\Model\Track\GetTrack\GetTrackCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction()
     {
         $response = $this->render(
             'PlayWithElasticSearchBundle:Playlists:index.html.twig',
-            ['playlists' => $this->get('playlist_repository')->findAll()]
+            ['playlists' => $this->get('atrapalo.infrastructure.model.playlist.repository.playlist_repository')
+                ->findAll()]
         );
 
         return $response;
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function tracksAction($id)
     {
-        $playListRepositoryImpl = $this->get('playlist_repository');
+        $playListRepositoryImpl = $this->get('atrapalo.infrastructure.model.playlist.repository.playlist_repository');
         $response = $this->render(
             'PlayWithElasticSearchBundle:Playlists:tracks.html.twig',
-            ['playlist' => $this->get('playlist_repository')->withTracks($id)]
+            ['playlist' => $playListRepositoryImpl->withTracks($id)]
         );
 
         return $response
@@ -36,15 +39,17 @@ class DefaultController extends Controller
             ->setEtag(md5(time()));
     }
 
-    public function trackAction($id, $trackId)
+    /**
+     * @param $playListId
+     * @param $trackId
+     *
+     * @return Response
+     */
+    public function trackAction($playListId, $trackId)
     {
-        $trackRepository = $this->get('track_repository');
+        $trackResource = $this->get('atrapalo.application.model.track.get_track.get_track_command_handler')
+            ->handle(GetTrackCommand::instance($trackId));
 
-        return $this->render(
-            'PlayWithElasticSearchBundle:Playlists:track.html.twig',
-            [
-                'track' => $trackRepository->withAlbumMediaTypeAndGenre($trackId)
-            ]
-        );
+        return $this->render('PlayWithElasticSearchBundle:Playlists:track.html.twig', ['track' => $trackResource]);
     }
 }

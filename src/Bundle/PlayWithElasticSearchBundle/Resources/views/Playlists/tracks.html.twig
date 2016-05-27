@@ -16,7 +16,7 @@
         {% for track in playlist.tracks %}
         <tr>
             <td>{{ track.id }}</td>
-            <td><a href="{{ path("app_playlists_track", { "id": playlist.id, "trackId": track.id }) }}">{{ track.name }}</a></td>
+            <td><a href="{{ path("app_playlists_track", { "playListId": playlist.id, "trackId": track.id }) }}">{{ track.name }}</a></td>
             <td>{{ track.composer }}</td>
         </tr>
         {% endfor %}

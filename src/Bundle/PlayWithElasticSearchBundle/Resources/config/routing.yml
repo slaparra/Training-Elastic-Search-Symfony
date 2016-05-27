@@ -7,7 +7,7 @@ app_playlist_tracks:
     defaults: { _controller: PlayWithElasticSearchBundle:Default:tracks }
 
 app_playlists_track:
-    path:     /playlist/{id}/tracks/{trackId}
+    path:     /playlist/{playListId}/tracks/{trackId}
     defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
 
 elastica_create_index:

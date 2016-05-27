@@ -2,15 +2,51 @@ parameters:
 #    atrapalo_play_with_elastic_search.example.class: Atrapalo\PlayWithElasticSearchBundle\Example
 
 services:
-    doctrine_entity_repository:
+
+#Repository
+    atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository:
         class: Atrapalo\Infrastructure\Persistence\Doctrine\DoctrineEntityRepository
         arguments:
             - "@doctrine.orm.entity_manager"
 
-    playlist_repository:
-        class: Atrapalo\Infrastructure\Model\PlayList\Repository\PlayListRepositoryImpl
-        parent: "doctrine_entity_repository"
-
-    track_repository:
+    atrapalo.infrastructure.model.track.repository.track_repository:
         class: Atrapalo\Infrastructure\Model\Track\Repository\TrackRepositoryImpl
-        parent: "doctrine_entity_repository"
+        parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
+
+    atrapalo.infrastructure.model.playlist.repository.playlist_repository:
+        class: Atrapalo\Infrastructure\Model\PlayList\Repository\PlayListRepositoryImpl
+        parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
+
+
+
+#DataTransformer
+    atrapalo.infrastructure.model.track.data_transformer.track_to_track_resource_data_transformer:
+        class: Atrapalo\Infrastructure\Model\Track\DataTransformer\TrackToTrackResourceDataTransformer
+        arguments:
+            - @atrapalo.infrastructure.model.album.data_transformer.album_to_album_resource_data_transformer
+            - @atrapalo.infrastructure.model.media_type.data_transformer.media_type_to_media_type_resource_data_transformer
+            - @atrapalo.infrastructure.model.genre.data_transformer.genre_to_genre_resource_data_transformer
+
+    atrapalo.infrastructure.model.album.data_transformer.album_to_album_resource_data_transformer:
+        class: Atrapalo\Infrastructure\Model\Album\DataTransformer\AlbumToAlbumResourceDataTransformer
+
+    atrapalo.infrastructure.model.media_type.data_transformer.media_type_to_media_type_resource_data_transformer:
+        class: Atrapalo\Infrastructure\Model\MediaType\DataTransformer\MediaTypeToMediaTypeResourceDataTransformer
+
+    atrapalo.infrastructure.model.genre.data_transformer.genre_to_genre_resource_data_transformer:
+        class: Atrapalo\Infrastructure\Model\Genre\DataTransformer\GenreToGenreResourceDataTransformer
+
+
+#CommandHandler DataTransformer
+    atrapalo.infrastructure.model.track.command_handler.get_track.data_transformer.get_track_command_result_to_track_resource_data_transformer:
+        class: Atrapalo\Infrastructure\Model\Track\CommandHandler\GetTrack\DataTransformer\GetTrackCommandResultToTrackResourceDataTransformer
+        arguments: [@atrapalo.infrastructure.model.track.data_transformer.track_to_track_resource_data_transformer]
+
+
+
+#CommandHandler
+    atrapalo.application.model.track.get_track.get_track_command_handler:
+        class: Atrapalo\Application\Model\Track\GetTrack\GetTrackCommandHandler
+        arguments:
+            - @atrapalo.infrastructure.model.track.command_handler.get_track.data_transformer.get_track_command_result_to_track_resource_data_transformer
+            - @atrapalo.infrastructure.model.track.repository.track_repository
