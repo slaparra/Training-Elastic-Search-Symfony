@@ -52,7 +52,7 @@ class MediaType implements Entity
      *
      * @return MediaType
      */
-    public function setName($name)
+    public function setName(string $name): MediaType
     {
         $this->name = $name;
 
@@ -64,7 +64,7 @@ class MediaType implements Entity
      *
      * @return MediaType
      */
-    public function addTrack(Track $track)
+    public function addTrack(Track $track): MediaType
     {
         $this->tracks[] = $track;
 
@@ -84,7 +84,7 @@ class MediaType implements Entity
     /**
      * @return ArrayCollection
      */
-    public function tracks()
+    public function tracks(): ArrayCollection
     {
         return $this->tracks;
     }

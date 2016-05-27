@@ -146,7 +146,7 @@ class Track implements Entity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function composer()
     {
