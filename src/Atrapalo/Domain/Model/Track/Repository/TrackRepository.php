@@ -16,11 +16,4 @@ interface TrackRepository extends EntityRepository
      * @return Track|null
      */
     public function find(int $id);
-
-    /**
-     * @param int $id
-     *
-     * @return Track[]
-     */
-    public function withAlbumMediaTypeAndGenre(int $id);
 }

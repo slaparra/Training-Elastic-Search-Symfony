@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-
     /**
      * @return Response
      */

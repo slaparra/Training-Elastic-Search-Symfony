@@ -21,14 +21,7 @@
 
     <testsuites>
         <testsuite name="Atrapalo Elastic Search Training Unit Tests">
-            <directory>./Atrapalo/Test</directory>
+            <directory>./src/Atrapalo/Test</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./Test/Application/Model</directory>
-        </whitelist>
-    </filter>
-
 </phpunit>

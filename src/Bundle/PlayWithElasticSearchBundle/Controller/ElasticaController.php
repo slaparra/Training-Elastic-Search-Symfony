@@ -2,7 +2,7 @@
 
 namespace Bundle\PlayWithElasticSearchBundle\Controller;
 
-use Bundle\PlayWithElasticSearchBundle\Entity\Track;
+use Atrapalo\Domain\Model\Track\Entity\Track;
 use Elastica\Client;
 use Elastica\Index;
 use Elastica\Query;

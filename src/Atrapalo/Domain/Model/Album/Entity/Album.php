@@ -26,9 +26,14 @@ class Album implements Entity
 
     /**
      * Constructor
+     *
+     * @param int    $id
+     * @param string $title
      */
-    public function __construct()
+    public function __construct(int $id, string $title)
     {
+        $this->id = $id;
+        $this->title = $title;
         $this->tracks = new ArrayCollection();
     }
 
