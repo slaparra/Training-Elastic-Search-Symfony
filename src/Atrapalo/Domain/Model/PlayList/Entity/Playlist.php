@@ -28,11 +28,22 @@ class PlayList implements Entity
      * @param int    $id
      * @param string $name
      */
-    public function __construct(int $id, string $name)
+    private function __construct(int $id, string $name)
     {
         $this->tracks = new ArrayCollection();
         $this->id = $id;
         $this->name = $name;
+    }
+
+    /**
+     * @param int    $id
+     * @param string $name
+     *
+     * @return PlayList
+     */
+    public static function instance(int $id, string $name): PlayList
+    {
+        return new static($id, $name);
     }
 
     /**
