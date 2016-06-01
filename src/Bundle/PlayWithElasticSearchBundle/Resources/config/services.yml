@@ -36,13 +36,18 @@ services:
     atrapalo.infrastructure.model.genre.data_transformer.genre_to_genre_resource_data_transformer:
         class: Atrapalo\Infrastructure\Model\Genre\DataTransformer\GenreToGenreResourceDataTransformer
 
+    atrapalo.infrastructure.model.playlist.data_transformer.playlist_to_playlist_resource_data_transformer:
+        class: Atrapalo\Infrastructure\Model\PlayList\DataTransformer\PlayListToPlayListResourceDataTransformer
+
 
 #CommandHandler DataTransformer
     atrapalo.infrastructure.model.track.command_handler.get_track.data_transformer.get_track_command_result_to_track_resource_data_transformer:
         class: Atrapalo\Infrastructure\Model\Track\CommandHandler\GetTrack\DataTransformer\GetTrackCommandResultToTrackResourceDataTransformer
         arguments: [@atrapalo.infrastructure.model.track.data_transformer.track_to_track_resource_data_transformer]
 
-
+    atrapalo.infrastructure.model.playlist.command_handler.search_playlists.data_transformer.search_playlists_command_result_to_playlist_resource_array_data_transformer:
+        class: Atrapalo\Infrastructure\Model\PlayList\CommandHandler\SearchPlayLists\DataTransformer\SearchPlayListsCommandResultToPlayListResourceArrayDataTransformer
+        arguments: [@atrapalo.infrastructure.model.playlist.data_transformer.playlist_to_playlist_resource_data_transformer]
 
 #CommandHandler
     atrapalo.application.model.track.get_track.get_track_command_handler:
@@ -50,3 +55,9 @@ services:
         arguments:
             - @atrapalo.infrastructure.model.track.command_handler.get_track.data_transformer.get_track_command_result_to_track_resource_data_transformer
             - @atrapalo.infrastructure.model.track.repository.track_repository
+
+    atrapalo.application.model.playlist.search_playlists.search_playlists_command_handler:
+        class: Atrapalo\Application\Model\PlayList\CommandHandler\SearchPlaylists\SearchPlayListsCommandHandler
+        arguments:
+            - @atrapalo.infrastructure.model.playlist.command_handler.search_playlists.data_transformer.search_playlists_command_result_to_playlist_resource_array_data_transformer
+            - @atrapalo.infrastructure.model.playlist.repository.playlist_repository

@@ -21,7 +21,7 @@
         <!-- Relations -->
         <one-to-many target-entity="Atrapalo\Domain\Model\Track\Entity\Track" mapped-by="album" field="tracks" />
 
-        <many-to-one target-entity="Atrapalo\Domain\Model\Artist\Entity\Artist" field="artist">
+        <many-to-one target-entity="Atrapalo\Domain\Model\Artist\Entity\Artist" inversed-by="albums" field="artist">
             <join-column name="ArtistId" referenced-column-name="ArtistId" />
         </many-to-one>
 
