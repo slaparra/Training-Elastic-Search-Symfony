@@ -1,6 +1,6 @@
 <?php
 
-namespace Atrapalo\Test\Application\Model\Track\GetTrack;
+namespace Atrapalo\Test\Application\Model\Track\CommandHandler\GetTrack;
 
 use Atrapalo\Application\Model\Track\Exception\TrackNotFoundException;
 use Atrapalo\Application\Model\Track\GetTrack\GetTrackCommand;
