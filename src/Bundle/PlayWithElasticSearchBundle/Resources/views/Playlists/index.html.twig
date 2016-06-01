@@ -14,7 +14,7 @@
         {% for playlist in playlists %}
         <tr>
             <td>{{ playlist.id }}</td>
-            <td><a href="{{ path("app_playlist_tracks", { "id": playlist.id }) }}"><strong>{{ playlist.name }}</strong></a></td>
+            <td><a href="{{ path("app_playlist_tracks", { "playListId": playlist.id }) }}"><strong>{{ playlist.name }}</strong></a></td>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,14 +1,16 @@
-elastica_index:
+app_playlists:
     path:     /
-    defaults: { _controller: PlayWithElasticSearchBundle:Default:index }
+    defaults: { _controller: PlayWithElasticSearchBundle:Default:playLists }
 
 app_playlist_tracks:
-    path:     /playlist/{id}/tracks
-    defaults: { _controller: PlayWithElasticSearchBundle:Default:tracks }
+    path:     /playlist/{playListId}/tracks
+    defaults: { _controller: PlayWithElasticSearchBundle:Default:playListTracks }
 
 app_playlists_track:
     path:     /playlist/{playListId}/tracks/{trackId}
     defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
+
+
 
 elastica_create_index:
     path:     /elastica/create-index

@@ -2,6 +2,7 @@
 
 namespace Bundle\PlayWithElasticSearchBundle\Controller;
 
+use Atrapalo\Application\Model\PlayList\CommandHandler\SearchPlaylists\SearchPlayListsCommand;
 use Atrapalo\Application\Model\Track\GetTrack\GetTrackCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,26 +12,29 @@ class DefaultController extends Controller
     /**
      * @return Response
      */
-    public function indexAction()
+    public function playListsAction()
     {
-        $response = $this->render(
-            'PlayWithElasticSearchBundle:Playlists:index.html.twig',
-            ['playlists' => $this->get('atrapalo.infrastructure.model.playlist.repository.playlist_repository')
-                ->findAll()]
-        );
+        $playListResources = $this
+            ->get('atrapalo.application.model.playlist.search_playlists.search_playlists_command_handler')
+            ->handle(SearchPlayListsCommand::instance());
 
-        return $response;
+        return $this->render(
+            'PlayWithElasticSearchBundle:Playlists:index.html.twig',
+            ['playlists' => $playListResources]
+        );
     }
 
     /**
+     * @param int $playListId
+     *
      * @return Response
      */
-    public function tracksAction($id)
+    public function playListTracksAction(int $playListId)
     {
         $playListRepositoryImpl = $this->get('atrapalo.infrastructure.model.playlist.repository.playlist_repository');
         $response = $this->render(
             'PlayWithElasticSearchBundle:Playlists:tracks.html.twig',
-            ['playlist' => $playListRepositoryImpl->withTracks($id)]
+            ['playlist' => $playListRepositoryImpl->withTracks($playListId)]
         );
 
         return $response

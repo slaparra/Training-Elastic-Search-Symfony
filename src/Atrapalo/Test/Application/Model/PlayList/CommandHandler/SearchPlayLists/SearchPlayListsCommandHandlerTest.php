@@ -54,8 +54,7 @@ class SearchPlayListsCommandHandlerTest extends \PHPUnit_Framework_TestCase
     private function getFirstPlayList(SearchPlayListsCommandResult $commandResult)
     {
         $playLists = $commandResult->playLists();
-        $playList = reset($playLists);
 
-        return $playList;
+        return reset($playLists);
     }
 }
