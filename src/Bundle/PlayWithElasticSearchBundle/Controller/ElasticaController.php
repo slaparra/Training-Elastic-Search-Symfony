@@ -104,18 +104,18 @@ class ElasticaController extends Controller
 
     public function tracksBulkIndexerAction()
     {
-        $trackRepository = $this->get('track_repository');
+        $trackRepository = $this->get('atrapalo.infrastructure.model.track.repository.track_repository');
         $tracks = $trackRepository->findAll();
 
         $documents = [];
         /** @var Track $track */
         foreach($tracks as $track) { // Fetching content from the database
             $documents[] = $this->addTrackDocument(
-                $track->getId(),
-                $track->getName(),
-                $track->getComposer(),
-                $track->getAlbum()->getId(),
-                $track->getAlbum()->getTitle()
+                $track->id(),
+                $track->name(),
+                $track->composer(),
+                $track->album()->id(),
+                $track->album()->title()
             );
         }
 
