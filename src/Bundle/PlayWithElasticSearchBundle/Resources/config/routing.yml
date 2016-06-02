@@ -1,14 +1,14 @@
 app_playlists:
     path:     /
-    defaults: { _controller: PlayWithElasticSearchBundle:Default:playLists }
+    defaults: { _controller: PlayWithElasticSearchBundle:PlayList/SearchPlayLists:searchPlayLists }
 
 app_playlist_tracks:
     path:     /playlist/{playListId}/tracks
-    defaults: { _controller: PlayWithElasticSearchBundle:Default:playListTracks }
+    defaults: { _controller: PlayWithElasticSearchBundle:Track/GetPlayListTracks:getPlayListTracks }
 
-app_playlists_track:
-    path:     /playlist/{playListId}/tracks/{trackId}
-    defaults: { _controller: PlayWithElasticSearchBundle:Default:track }
+app_track:
+    path:     /track/{trackId}
+    defaults: { _controller: PlayWithElasticSearchBundle:Track/GetTrack:track }
 
 
 

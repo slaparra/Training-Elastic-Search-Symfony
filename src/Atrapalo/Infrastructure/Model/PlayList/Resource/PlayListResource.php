@@ -17,7 +17,7 @@ class PlayListResource
      * @param int    $id
      * @param string $name
      */
-    private function __construct($id, $name)
+    private function __construct(int $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
