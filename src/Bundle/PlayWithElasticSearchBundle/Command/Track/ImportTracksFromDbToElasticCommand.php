@@ -2,7 +2,7 @@
 
 namespace Bundle\PlayWithElasticSearchBundle\Command\Track;
 
-use Atrapalo\Domain\Model\Track\Entity\Track;
+use Atrapalo\Domain\Model\PlayList\Entity\PlayList;
 use Elastica\Client;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,40 +24,42 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $tracks = $this->getTracks();
-        $documents = $this->createTrackDocuments($tracks);
+        $playLists = $this->getPlayLists();
+        $documents = $this->createTrackDocuments($playLists);
         $this->addDocumentsToPlayListIndex($documents);
     }
 
     /**
-     * @return Track[]
+     * @return PlayList[]
      */
-    protected function getTracks()
+    protected function getPlayLists()
     {
-        $trackRepository = $this->getContainer()
-            ->get('atrapalo.infrastructure.model.track.repository.track_repository');
+        $playListRepository = $this->getContainer()
+            ->get('atrapalo.infrastructure.model.playlist.repository.playlist_repository');
 
-        return $trackRepository->findAll();
+        return $playListRepository->findAll();
     }
 
     /**
-     * @param $tracks
+     * @param PlayList[] $playLists
      *
      * @return array
      */
-    protected function createTrackDocuments($tracks)
+    protected function createTrackDocuments(array $playLists)
     {
         $documents = [];
 
-        /** @var Track $track */
-        foreach ($tracks as $track) {
-            $documents[] = $this->createTrackDocument(
-                $track->id(),
-                $track->name(),
-                $track->composer(),
-                $track->album()->id(),
-                $track->album()->title()
-            );
+        foreach ($playLists as $playList) {
+            foreach ($playList->tracks() as $track) {
+                $documents[] = $this->createTrackDocument(
+                    $track->id(),
+                    $track->name(),
+                    $track->composer(),
+                    $track->album()->id(),
+                    $track->album()->title(),
+                    $playList->name()
+                );
+            }
         }
 
         return $documents;
@@ -69,22 +71,24 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
      * @param string  $composer
      * @param integer $albumId
      * @param string  $albumTitle
+     * @param string  $playListName
      *
      * @return \Elastica\Document
      */
-    public function createTrackDocument($id, $name, $composer, $albumId, $albumTitle)
+    public function createTrackDocument($id, $name, $composer, $albumId, $albumTitle, $playListName)
     {
         // Create a document
-        $track = array(
-            'id'       => $id,
-            'album'    => array(
-                'id'    => $albumId,
+        $track = [
+            'id' => $id,
+            'album' => [
+                'id' => $albumId,
                 'title' => $albumTitle
-            ),
-            'name'     => $name,
+            ],
+            'name' => $name,
+            'playListName' => $playListName,
             'composer' => $composer,
-            '_boost'   => 1.0
-        );
+            '_boost' => 1.0
+        ];
 
         // First parameter is the id of document.
         return new \Elastica\Document($id, $track);
