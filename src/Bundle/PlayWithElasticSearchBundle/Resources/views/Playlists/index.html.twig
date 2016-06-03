@@ -3,6 +3,23 @@
 {% block title "Available Playlists" %}
 
 {% block content %}
+
+<form class="form-inline">
+    <div class="form-group">
+        <label for="exampleInputName2">Playlist name</label>
+        <input type="text" class="form-control" id="playlist_name" name="playlist_name" value="{{ playlist_name }}" placeholder="Movies, Audiobooks...">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail2">With Track</label>
+        <input type="text" class="form-control" id="track_name" name="track_name" value="{{ track_name }}" placeholder="Fast As a Shark, Snowballed...">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail2">Composer</label>
+        <input type="text" class="form-control" id="composer" name="composer" value="{{ composer }}" placeholder="Alanis Morissette, Malcolm Young, Brian Johnson...">
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+<hr />
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
