@@ -87,20 +87,41 @@ class CreateElasticSearchPlayListIndexCommand extends ContainerAwareCommand
 
         // Set mapping
         $mapping->setProperties(
-            array(
-                'id'       => array('type' => 'integer', 'include_in_all' => false),
-                'album'    => array(
-                    'type'       => 'object',
-                    'properties' => array(
-                        'id'    => array('type' => 'integer', 'include_in_all' => true),
-                        'title' => array('type' => 'string', 'include_in_all' => true)
-                    ),
-                ),
-                'name'     => array('type' => 'string', 'include_in_all' => true),
-                'playListName'     => array('type' => 'string', 'include_in_all' => true),
-                'composer' => array('type' => 'string', 'include_in_all' => true),
-                '_boost'   => array('type' => 'float', 'include_in_all' => false)
-            )
+            [
+                'id' => [
+                    'type' => 'integer',
+                    'include_in_all' => false
+                ],
+                'album' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'id' => [
+                            'type' => 'integer',
+                            'include_in_all' => true
+                        ],
+                        'title' => [
+                            'type' => 'string',
+                            'include_in_all' => true
+                        ]
+                    ],
+                ],
+                'name' => [
+                    'type' => 'string',
+                    'include_in_all' => true
+                ],
+                'playListName' => [
+                    'type' => 'string',
+                    'include_in_all' => true
+                ],
+                'composer' => [
+                    'type' => 'string',
+                    'include_in_all' => true
+                ],
+                '_boost' => [
+                    'type' => 'float',
+                    'include_in_all' => false
+                ]
+            ]
         );
 
         // Send mapping to type
