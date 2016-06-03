@@ -75,16 +75,10 @@ or
 </pre>
 
 
-##Install [Symfony](http://www.symfony.com)
-
-install command: 
+##[Symfony](http://www.symfony.com)
+ 
 <pre>
-~ $ composer create-project symfony/framework-standard-edition &lt;project-path&gt;/ "2.7.*" 
-</pre>
-
-How to generate Symfony bundle: 
-<pre>
-~ $ php app/console generate:bundle --namespace=Atrapalo/PlayWithElasticSearchBundle
+~ $ composer install 
 </pre>
 
 configure Symfony app_dev.php to localhost:
@@ -96,26 +90,19 @@ or
 ~$ php app/console server:run
 </pre>
 
-###Elastic Search PHP Client
+###Elastica PHP Client
 
-Features
-
- - One-to-one mapping with REST API and other language clients
- - Configurable, automatic discovery of cluster nodes
- - Persistent, Keep-Alive connections (within the lifetime of the script)
- - Load balancing (with pluggable selection strategy) across all available nodes. Defaults to round-robin
- - Pluggable connection pools to offer different connection strategies
- - Generalized, pluggable architecture - most components can be replaced with your own custom class if specialized behavior is required
-
-Add to composer.json:
+Added to composer.json:
 <pre>
-        "elasticsearch/elasticsearch": "1.2.2",
+        "ruflin/elastica": "2.*",
 </pre>
 
-[GitHub](https://github.com/elasticsearch/elasticsearch-php)
+[Elastica vs Elasticsearch-php](http://elastica.io/elastica-vs-elasticsearch-php/)
+[GitHub elasticsearch-php](https://github.com/elasticsearch/elasticsearch-php)
+[Elastica php client](http://elastica.io)
 
 
-#FriendsOfSymfony [FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle)
+###FriendsOfSymfony [FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle)
 
 This [bundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/index.md) provides integration with ElasticSearch and Elastica with Symfony2
 
