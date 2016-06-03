@@ -97,9 +97,9 @@ Added to composer.json:
         "ruflin/elastica": "2.*",
 </pre>
 
-[Elastica vs Elasticsearch-php](http://elastica.io/elastica-vs-elasticsearch-php/)
-[GitHub elasticsearch-php](https://github.com/elasticsearch/elasticsearch-php)
-[Elastica php client](http://elastica.io)
+* [Elastica php client](http://elastica.io)
+* [Elastica vs Elasticsearch-php](http://elastica.io/elastica-vs-elasticsearch-php/)
+* [GitHub elasticsearch-php](https://github.com/elasticsearch/elasticsearch-php)
 
 
 ###FriendsOfSymfony [FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle)
