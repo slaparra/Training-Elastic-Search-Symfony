@@ -57,6 +57,7 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
                     $track->composer(),
                     $track->album()->id(),
                     $track->album()->title(),
+                    $playList->id(),
                     $playList->name()
                 );
             }
@@ -69,13 +70,14 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
      * @param integer $id
      * @param string  $name
      * @param string  $composer
-     * @param integer $albumId
+     * @param int     $albumId
      * @param string  $albumTitle
+     * @param int     $playListId
      * @param string  $playListName
      *
      * @return \Elastica\Document
      */
-    public function createTrackDocument($id, $name, $composer, $albumId, $albumTitle, $playListName)
+    public function createTrackDocument($id, $name, $composer, $albumId, $albumTitle, $playListId, $playListName)
     {
         // Create a document
         $track = [
@@ -85,14 +87,15 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
                 'title' => $albumTitle
             ],
             'name' => $name,
-            'playListName' => $playListName,
-            'composer' => $composer,
-            '_boost' => 1.0
+            'playList' => [
+                'id' => $playListId,
+                'name' => $playListName
+            ],
+            'composer' => $composer
         ];
 
         // First parameter is the id of document.
         return new \Elastica\Document($id, $track);
-
     }
 
     /**

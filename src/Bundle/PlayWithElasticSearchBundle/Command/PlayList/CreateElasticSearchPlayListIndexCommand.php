@@ -109,17 +109,22 @@ class CreateElasticSearchPlayListIndexCommand extends ContainerAwareCommand
                     'type' => 'string',
                     'include_in_all' => true
                 ],
-                'playListName' => [
-                    'type' => 'string',
-                    'include_in_all' => true
+                'playList' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'id' => [
+                            'type' => 'integer',
+                            'include_in_all' => true
+                        ],
+                        'name' => [
+                            'type' => 'string',
+                            'include_in_all' => true
+                        ]
+                    ],
                 ],
                 'composer' => [
                     'type' => 'string',
                     'include_in_all' => true
-                ],
-                '_boost' => [
-                    'type' => 'float',
-                    'include_in_all' => false
                 ]
             ]
         );
