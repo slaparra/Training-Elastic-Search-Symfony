@@ -6,8 +6,56 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+
     <body>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Elasticsearch Trainning</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{{ path('app_search_tracks') }}">Search tracks</a></li>
+                        <li><a href="{{ path('app_create_track') }}">Create track</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <section class="message-container">
+            <div class="container">
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <div class="alert  alert-icon alert-warning" role="alert">
+                        <i class="fa fa-warning"></i>
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="alert alert-icon alert-success" role="alert">
+                        <i class="fa fa-check"></i>
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted"><a href="http://github.com/slaparra/Training-Elastic-Search-Symfony">GitHub</a> | <a href="https://es.linkedin.com/in/santiago-laparra-muñoz-11152128">LinkedIn</a></p>
+            </div>
+        </footer>
+
     </body>
 </html>

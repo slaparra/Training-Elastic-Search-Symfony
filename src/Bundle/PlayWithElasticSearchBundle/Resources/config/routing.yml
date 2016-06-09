@@ -7,10 +7,16 @@ app_playlist_tracks:
     defaults: { _controller: PlayWithElasticSearchBundle:Track/GetPlayListTracks:getPlayListTracks }
 
 app_track:
-    path:     /track/{trackId}
+    path:     /track/{trackId}/show
     defaults: { _controller: PlayWithElasticSearchBundle:Track/GetTrack:track }
 
+app_create_track:
+    path:     /track/create
+    defaults: { _controller: PlayWithElasticSearchBundle:Track/CreateTrack:createTrackForm }
 
+app_search_tracks:
+    path:     /track/search
+    defaults: { _controller: PlayWithElasticSearchBundle:Track/SearchTracks:searchTracks }
 
 elastica_search:
     path:     /elastica/search

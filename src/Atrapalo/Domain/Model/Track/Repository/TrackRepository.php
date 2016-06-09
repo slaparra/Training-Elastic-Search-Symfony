@@ -10,10 +10,22 @@ use Atrapalo\Domain\Model\Track\Entity\Track;
  */
 interface TrackRepository extends EntityRepository
 {
+    const LIMIT = 50;
+
     /**
      * @param int $id
      *
      * @return Track|null
      */
     public function find(int $id);
+
+    /**
+     * @param array      $criteria
+     * @param array|null $orderBy
+     * @param int|null   $limit
+     * @param int|null   $offset
+     *
+     * @return Track[]
+     */
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
 }

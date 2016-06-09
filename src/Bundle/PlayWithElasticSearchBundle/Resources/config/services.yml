@@ -1,6 +1,3 @@
-parameters:
-#    atrapalo_play_with_elastic_search.example.class: Atrapalo\PlayWithElasticSearchBundle\Example
-
 services:
 
 #Repository
@@ -16,6 +13,8 @@ services:
     atrapalo.infrastructure.model.playlist.repository.playlist_repository:
         class: Atrapalo\Infrastructure\Model\PlayList\Repository\PlayListRepositoryImpl
         parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
+        arguments:
+            - "@ruflin.elastica.search"
 
 
 
@@ -40,6 +39,7 @@ services:
         class: Atrapalo\Infrastructure\Model\PlayList\DataTransformer\PlayListToPlayListResourceDataTransformer
 
 
+
 #CommandHandler DataTransformer
     atrapalo.infrastructure.model.track.command_handler.get_track.data_transformer.get_track_command_result_to_track_resource_data_transformer:
         class: Atrapalo\Infrastructure\Model\Track\CommandHandler\GetTrack\DataTransformer\GetTrackCommandResultToTrackResourceDataTransformer
@@ -48,6 +48,12 @@ services:
     atrapalo.infrastructure.model.playlist.command_handler.search_playlists.data_transformer.search_playlists_command_result_to_playlist_resource_array_data_transformer:
         class: Atrapalo\Infrastructure\Model\PlayList\CommandHandler\SearchPlayLists\DataTransformer\SearchPlayListsCommandResultToPlayListResourceArrayDataTransformer
         arguments: [@atrapalo.infrastructure.model.playlist.data_transformer.playlist_to_playlist_resource_data_transformer]
+
+    atrapalo.infrastructure.model.track.command_handler.search_tracks.data_transformer.search_tracks_command_result_to_track_resource_array_data_transformer:
+        class: Atrapalo\Infrastructure\Model\Track\CommandHandler\SearchTracks\DataTransformer\SearchTracksCommandResultToTrackResourceArrayDataTransformer
+        arguments: [@atrapalo.infrastructure.model.track.data_transformer.track_to_track_resource_data_transformer]
+
+
 
 #CommandHandler
     atrapalo.application.model.track.get_track.get_track_command_handler:
@@ -61,3 +67,19 @@ services:
         arguments:
             - @atrapalo.infrastructure.model.playlist.command_handler.search_playlists.data_transformer.search_playlists_command_result_to_playlist_resource_array_data_transformer
             - @atrapalo.infrastructure.model.playlist.repository.playlist_repository
+
+    atrapalo.application.model.track.search_tracks.search_tracks_command_handler:
+        class: Atrapalo\Application\Model\Track\SearchTracks\SearchTracksCommandHandler
+        arguments:
+            - @atrapalo.infrastructure.model.track.command_handler.search_tracks.data_transformer.search_tracks_command_result_to_track_resource_array_data_transformer
+            - @atrapalo.infrastructure.model.track.repository.track_repository
+
+
+
+#Elastica
+    ruflin.elastica.client:
+        class: Elastica\Client
+
+    ruflin.elastica.search:
+        class: Elastica\Search
+        arguments: [@ruflin.elastica.client]

@@ -1,0 +1,19 @@
+{% extends "PlayWithElasticSearchBundle:Playlists:index.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block page_header_title "Create Track"|capitalize %}
+{% block page_header_subtitle "Add to album & playlist" %}
+
+{% block content %}
+
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-body col-lg-6">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

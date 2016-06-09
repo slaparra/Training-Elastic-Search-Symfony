@@ -75,6 +75,11 @@ abstract class DoctrineEntityRepository implements EntityRepository
         return $this->entityRepository()->findOneBy($criteria);
     }
 
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    {
+        return $this->entityRepository()->findBy($criteria, $orderBy, $limit, $offset);
+    }
+
     public function save(Entity $anEntity, $commit = false)
     {
         $this->entityManager->persist($anEntity);
