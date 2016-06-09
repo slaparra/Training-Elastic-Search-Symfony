@@ -16,4 +16,14 @@ interface PlayListRepository extends EntityRepository
      * @return PlayList[]
      */
     public function find(int $id);
+
+    /**
+     * @return PlayList[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return PlayList[]
+     */
+    public function findAllWithTracks();
 }

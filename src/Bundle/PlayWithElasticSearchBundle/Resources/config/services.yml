@@ -6,6 +6,18 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
 
+    atrapalo.infrastructure.model.album.repository.album_repository:
+        class: Atrapalo\Infrastructure\Model\Track\Repository\AlbumRepositoryImpl
+        parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
+
+    atrapalo.infrastructure.model.genre.repository.genre_repository:
+        class: Atrapalo\Infrastructure\Model\Track\Repository\GenreRepositoryImpl
+        parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
+
+    atrapalo.infrastructure.model.media_type.repository.media_type_repository:
+        class: Atrapalo\Infrastructure\Model\MediaType\Repository\MediaTypeRepositoryImpl
+        parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
+
     atrapalo.infrastructure.model.track.repository.track_repository:
         class: Atrapalo\Infrastructure\Model\Track\Repository\TrackRepositoryImpl
         parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
