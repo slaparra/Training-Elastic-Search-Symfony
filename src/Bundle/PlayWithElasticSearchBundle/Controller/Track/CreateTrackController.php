@@ -3,6 +3,7 @@
 namespace Bundle\PlayWithElasticSearchBundle\Controller\Track;
 
 use Atrapalo\Application\Model\Track\CreateTrack\CreateTrackCommand;
+use Atrapalo\Infrastructure\Model\Track\Resource\TrackResource;
 use Bundle\PlayWithElasticSearchBundle\Form\Album\Resource\AlbumResource;
 use Bundle\PlayWithElasticSearchBundle\Form\Genre\Resource\GenreResource;
 use Bundle\PlayWithElasticSearchBundle\Form\MediaType\Resource\MediaTypeResource;
@@ -24,21 +25,26 @@ class CreateTrackController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $this->get('atrapalo.application.model.track.create_track.create_track_command_handler')
-                    ->handle(CreateTrackCommand::instance(
-                        $form->get('name')->getData(),
-                        $form->get('album')->getData(),
-                        $form->get('media_type')->getData(),
-                        $form->get('genre')->getData(),
-                        $form->get('composer')->getData(),
-                        $form->get('milliseconds')->getData(),
-                        $form->get('bytes')->getData(),
-                        $form->get('unitprice')->getData(),
-                        $form->get('playlist')->getData()
-                    ));
+                /** @var TrackResource $trackResource */
+                $trackResource = $this
+                    ->get('atrapalo.application.model.track.create_track.create_track_command_handler')
+                    ->handle(
+                        CreateTrackCommand::instance(
+                            $form->get('name')->getData(),
+                            $form->get('album')->getData(),
+                            $form->get('media_type')->getData(),
+                            $form->get('genre')->getData(),
+                            $form->get('composer')->getData(),
+                            $form->get('milliseconds')->getData(),
+                            $form->get('bytes')->getData(),
+                            $form->get('unitprice')->getData(),
+                            $form->get('playlist')->getData()
+                        )
+                    );
+
                 $this->addFlash('notice', 'Guardado correctamente');
 
-                return $this->redirectToRoute('app_track', ['trackId'=> 1]);
+                return $this->redirectToRoute('app_track', ['trackId'=> $trackResource->id()]);
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha habido un error al guardar el track: '.$e->getMessage());
             }
@@ -55,6 +61,7 @@ class CreateTrackController extends Controller
      */
     private function buildFormOptions()
     {
+        //@TODO: get resources from use cases, not hardcoded
         return [
             'action' => $this->generateUrl('app_create_track'),
             'albums' => [

@@ -4,6 +4,7 @@ namespace Atrapalo\Application\Model\Track\CreateTrack;
 
 use Atrapalo\Application\Model\Command\Command;
 use Atrapalo\Application\Model\Command\CommandHandler;
+use Atrapalo\Application\Model\Track\CreateTrack\DataTransformer\CreateTrackCommandResultDataTransformer;
 use Atrapalo\Domain\Model\Album\Repository\AlbumRepository;
 use Atrapalo\Domain\Model\Genre\Repository\GenreRepository;
 use Atrapalo\Domain\Model\MediaType\Repository\MediaTypeRepository;
@@ -16,6 +17,9 @@ use Atrapalo\Domain\Model\Track\Repository\TrackRepository;
  */
 class CreateTrackCommandHandler implements CommandHandler
 {
+    /** @var CreateTrackCommandResultDataTransformer */
+    private $dataTransformer;
+
     /** @var AlbumRepository */
     private $albumRepository;
 
@@ -32,12 +36,14 @@ class CreateTrackCommandHandler implements CommandHandler
     private $trackRepository;
 
     public function __construct(
+        CreateTrackCommandResultDataTransformer $dataTransformer,
         AlbumRepository $albumRepository,
         GenreRepository $genreRepository,
         MediaTypeRepository $mediTypeRepository,
         PlayListRepository $playListRepository,
         TrackRepository $trackRepository
     ) {
+        $this->dataTransformer = $dataTransformer;
         $this->albumRepository = $albumRepository;
         $this->genreRepository = $genreRepository;
         $this->mediaTypeRepository = $mediTypeRepository;
@@ -68,5 +74,9 @@ class CreateTrackCommandHandler implements CommandHandler
         $this->trackRepository->save($track);
         $playList->addTrack($track);
         $this->playListRepository->save($playList);
+
+        return $this->dataTransformer->transform(
+            CreateTrackCommandResult::instance($track)
+        );
     }
 }

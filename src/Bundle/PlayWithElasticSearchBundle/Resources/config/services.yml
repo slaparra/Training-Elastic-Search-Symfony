@@ -65,12 +65,17 @@ services:
         class: Atrapalo\Infrastructure\Model\Track\CommandHandler\SearchTracks\DataTransformer\SearchTracksCommandResultToTrackResourceArrayDataTransformer
         arguments: [@atrapalo.infrastructure.model.track.data_transformer.track_to_track_resource_data_transformer]
 
+    atrapalo.infrastructure.model.track.command_handler.create_track.data_transformer.create_track_command_result_to_track_resource_data_transformer:
+        class: Atrapalo\Infrastructure\Model\Track\CommandHandler\CreateTrack\DataTransformer\CreateTrackCommandResultToTrackResourceDataTransformer
+        arguments: [@atrapalo.infrastructure.model.track.data_transformer.track_to_track_resource_data_transformer]
+
 
 
 #CommandHandler
     atrapalo.application.model.track.create_track.create_track_command_handler:
         class: Atrapalo\Application\Model\Track\CreateTrack\CreateTrackCommandHandler
         arguments:
+            - @atrapalo.infrastructure.model.track.command_handler.create_track.data_transformer.create_track_command_result_to_track_resource_data_transformer
             - @atrapalo.infrastructure.model.album.repository.album_repository
             - @atrapalo.infrastructure.model.genre.repository.genre_repository
             - @atrapalo.infrastructure.model.media_type.repository.media_type_repository
