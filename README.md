@@ -1,7 +1,7 @@
 #ElasticSearch and Symfony
 
-[install elasticsearch](app/Resources/docs/elasticsearch.md)
-[queries with marvel](app/Resources/docs/queries-and-marvel.md)
+- [install elasticsearch](app/Resources/docs/elasticsearch.md)
+- [queries with marvel](app/Resources/docs/queries-and-marvel.md)
 
 
 ##[Symfony](http://www.symfony.com)
