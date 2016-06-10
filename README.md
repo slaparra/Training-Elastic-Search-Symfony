@@ -1,5 +1,6 @@
 #ElasticSearch and Symfony
 
+Code runs with Elastic search 1.5:
 - [install elasticsearch](app/Resources/docs/elasticsearch.md)
 - [queries with marvel](app/Resources/docs/queries-and-marvel.md)
 
