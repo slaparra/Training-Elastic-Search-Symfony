@@ -13,7 +13,7 @@ interface PlayListRepository extends EntityRepository
     /**
      * @param int $id
      *
-     * @return PlayList[]
+     * @return PlayList
      */
     public function find(int $id);
 

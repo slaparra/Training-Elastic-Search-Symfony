@@ -7,11 +7,11 @@ services:
             - "@doctrine.orm.entity_manager"
 
     atrapalo.infrastructure.model.album.repository.album_repository:
-        class: Atrapalo\Infrastructure\Model\Track\Repository\AlbumRepositoryImpl
+        class: Atrapalo\Infrastructure\Model\Album\Repository\AlbumRepositoryImpl
         parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
 
     atrapalo.infrastructure.model.genre.repository.genre_repository:
-        class: Atrapalo\Infrastructure\Model\Track\Repository\GenreRepositoryImpl
+        class: Atrapalo\Infrastructure\Model\Genre\Repository\GenreRepositoryImpl
         parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
 
     atrapalo.infrastructure.model.media_type.repository.media_type_repository:
@@ -68,6 +68,15 @@ services:
 
 
 #CommandHandler
+    atrapalo.application.model.track.create_track.create_track_command_handler:
+        class: Atrapalo\Application\Model\Track\CreateTrack\CreateTrackCommandHandler
+        arguments:
+            - @atrapalo.infrastructure.model.album.repository.album_repository
+            - @atrapalo.infrastructure.model.genre.repository.genre_repository
+            - @atrapalo.infrastructure.model.media_type.repository.media_type_repository
+            - @atrapalo.infrastructure.model.playlist.repository.playlist_repository
+            - @atrapalo.infrastructure.model.track.repository.track_repository
+
     atrapalo.application.model.track.get_track.get_track_command_handler:
         class: Atrapalo\Application\Model\Track\GetTrack\GetTrackCommandHandler
         arguments:

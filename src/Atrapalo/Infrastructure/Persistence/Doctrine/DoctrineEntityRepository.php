@@ -83,8 +83,6 @@ abstract class DoctrineEntityRepository implements EntityRepository
     public function save(Entity $anEntity, $commit = false)
     {
         $this->entityManager->persist($anEntity);
-        if ($commit) {
-            $this->entityManager->flush($anEntity);
-        }
+        $this->entityManager->flush($anEntity);
     }
 }

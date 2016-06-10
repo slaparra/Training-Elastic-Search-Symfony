@@ -1,6 +1,6 @@
 <?php
 
-namespace Atrapalo\Infrastructure\Model\Track\Repository;
+namespace Atrapalo\Infrastructure\Model\Album\Repository;
 
 use Atrapalo\Domain\Model\Album\Entity\Album;
 use Atrapalo\Domain\Model\Album\Repository\AlbumRepository;

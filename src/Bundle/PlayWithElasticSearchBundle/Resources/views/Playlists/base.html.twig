@@ -20,6 +20,21 @@
 
     <div class="container">
         <div class="page-header">
+
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="alert  alert-icon alert-warning" role="alert">
+                    <i class="fa fa-warning"></i>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-icon alert-success" role="alert">
+                    <i class="fa fa-check"></i>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
             <h1>{% block page_header_title "Playlists" %} <small>{% block page_header_subtitle "with album tracks" %}</small></h1>
         </div>
         {% block content %}{% endblock %}

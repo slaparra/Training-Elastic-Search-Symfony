@@ -1,15 +1,15 @@
 <?php
 
-namespace Bundle\PlayWithElasticSearchBundle\Form\Album\Type;
+namespace Bundle\PlayWithElasticSearchBundle\Form\Genre\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class MediaTypeType
+ * Class GenreType
  */
-class AlbumType extends AbstractType
+class GenreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

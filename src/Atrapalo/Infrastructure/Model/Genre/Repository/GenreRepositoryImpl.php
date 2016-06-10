@@ -1,6 +1,6 @@
 <?php
 
-namespace Atrapalo\Infrastructure\Model\Track\Repository;
+namespace Atrapalo\Infrastructure\Model\Genre\Repository;
 
 use Atrapalo\Domain\Model\Genre\Entity\Genre;
 use Atrapalo\Domain\Model\Genre\Repository\GenreRepository;

@@ -38,29 +38,33 @@ class Track implements Entity
     /** @var int */
     private $bytes;
 
-    /** @var string */
+    /** @var float */
     private $unitPrice;
 
     /** @var ArrayCollection */
     private $invoiceLines;
 
     /**
-     * @param int    $id
      * @param string $name
      * @param Album  $album
      */
-    public function __construct(int $id, string $name, Album $album)
+    private function __construct(string $name, Album $album)
     {
         $this->invoiceLines = new ArrayCollection();
-        $this->id = $id;
+        $this->id = null;
         $this->name = $name;
         $this->album = $album;
+    }
+
+    public static function instance(string $name, Album $album): Track
+    {
+        return new static($name, $album);
     }
 
     /**
      * @return int
      */
-    public function id(): int
+    public function id()
     {
         return $this->id;
     }
@@ -206,19 +210,19 @@ class Track implements Entity
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function unitPrice(): string
+    public function unitPrice(): float
     {
         return $this->unitPrice;
     }
 
     /**
-     * @param string $unitPrice
+     * @param float $unitPrice
      *
      * @return Track
      */
-    public function setUnitPrice(string $unitPrice): Track
+    public function setUnitPrice(float $unitPrice): Track
     {
         $this->unitPrice = $unitPrice;
 

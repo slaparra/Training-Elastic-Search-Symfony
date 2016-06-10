@@ -29,24 +29,6 @@
             </div>
         </nav>
 
-        <section class="message-container">
-            <div class="container">
-                {% for flashMessage in app.session.flashbag.get('error') %}
-                    <div class="alert  alert-icon alert-warning" role="alert">
-                        <i class="fa fa-warning"></i>
-                        {{ flashMessage }}
-                    </div>
-                {% endfor %}
-
-                {% for flashMessage in app.session.flashbag.get('notice') %}
-                    <div class="alert alert-icon alert-success" role="alert">
-                        <i class="fa fa-check"></i>
-                        {{ flashMessage }}
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
 
