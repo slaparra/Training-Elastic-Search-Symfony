@@ -15,7 +15,7 @@
         </unique-constraints>
 
         <id name="id" type="integer" column="TrackId">
-            <generator strategy="NONE" />
+            <generator strategy="AUTO" />
         </id>
 
         <field name="name" type="string" column="Name" length="200" nullable="false"/>

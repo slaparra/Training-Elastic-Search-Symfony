@@ -12,11 +12,15 @@
             <unique-constraint name="IPK_InvoiceLine" columns="InvoiceLineId"/>
         </unique-constraints>
 
-        <id name="id" column="InvoiceId" type="integer">
+        <id name="invoice" column="InvoiceId" type="integer">
             <generator strategy="NONE" />
         </id>
 
-        <id name="trackId" column="TrackId" type="integer">
+        <id name="track" column="TrackId" type="integer">
+            <generator strategy="NONE" />
+        </id>
+
+        <id name="id" column="InvoiceLineId" type="integer">
             <generator strategy="NONE" />
         </id>
 

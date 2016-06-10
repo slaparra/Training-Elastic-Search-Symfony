@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Chinook\Store\Domain\Customer" table="Customer">
+    <entity name="Atrapalo\Domain\Model\Customer\Entity\Customer" table="Customer">
         <indexes>
             <index name="IFK_CustomerSupportRepId" columns="SupportRepId"/>
         </indexes>
@@ -26,7 +26,7 @@
         <field name="email" type="string" column="Email" length="60" nullable="false"/>
 
         <one-to-many target-entity="Atrapalo\Domain\Model\Invoice\Entity\Invoice" mapped-by="customer" field="invoices" />
-        <many-to-one target-entity="Atrapalo\Domain\Model\Employee\Entity\Employee" field="supporterEmployee">
+        <many-to-one target-entity="Atrapalo\Domain\Model\Employee\Entity\Employee" field="supporter">
             <join-column name="SupportRepId" referenced-column-name="EmployeeId" />
         </many-to-one>
     </entity>
