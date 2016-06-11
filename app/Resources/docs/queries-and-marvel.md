@@ -87,7 +87,7 @@ GET playlist/_search
 
 ##Filter
 
-id = 5 ([Term](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html))
+Exact word, id = 5 ([Term](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html))
 
 <pre>
 GET playlist/_search
@@ -101,7 +101,7 @@ GET playlist/_search
 
 </pre>
 
-Mysql "in" 
+Mysql id "in" 
 
 <pre>
 GET playlist/_search
@@ -112,7 +112,7 @@ GET playlist/_search
 }
 </pre>
 
-Range ([Ranges](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html))
+Ranges ([Range](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html))
 
 <pre>
 GET playlist/_search
@@ -132,7 +132,7 @@ GET playlist/_search
 }
 </pre>
 
-Order ([sorting]())
+Order ([sorting](https://www.elastic.co/guide/en/elasticsearch/guide/current/_sorting.html))
 
 <pre>
 GET playlist/_search?from=0&size=20

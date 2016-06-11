@@ -1,11 +1,13 @@
 #ElasticSearch and Symfony
 
-Code runs with Elastic search 1.5:
+The code inside the project runs with Elasticsearch 1.5:
+
 - [install elasticsearch](app/Resources/docs/elasticsearch.md)
 - [queries with marvel](app/Resources/docs/queries-and-marvel.md)
+- [elasticsearch php clients](app/Resources/docs/elasticsearch-php-clients.md)
 
 
-##[Symfony](http://www.symfony.com)
+###[Symfony](http://www.symfony.com)
  
 <pre>
 ~ $ composer install 
@@ -19,27 +21,6 @@ or
 <pre>
 ~$ php app/console server:run
 </pre>
-
-###Elastica PHP Client
-
-Added to composer.json:
-<pre>
-        "ruflin/elastica": "2.*",
-</pre>
-
-* [Elastica php client](http://elastica.io)
-* [Elastica vs Elasticsearch-php](http://elastica.io/elastica-vs-elasticsearch-php/)
-* [GitHub elasticsearch-php](https://github.com/elasticsearch/elasticsearch-php)
-
-
-###FriendsOfSymfony [FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle)
-
-This [bundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/index.md) provides integration with ElasticSearch and Elastica with Symfony2
-
-<pre>php composer.phar require friendsofsymfony/elastica-bundle "~3.0"</pre>
-* [Installation](https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/setup.md)
-* [Usage](https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/usage.md)
-
 
 #ElasticSearch, Sphinx and Solr comparison links
 
