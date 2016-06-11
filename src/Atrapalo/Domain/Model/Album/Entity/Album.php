@@ -24,17 +24,16 @@ class Album implements Entity
     /** @var ArrayCollection */
     private $tracks;
 
-    /**
-     * Constructor
-     *
-     * @param int    $id
-     * @param string $title
-     */
-    public function __construct(int $id, string $title)
+    private function __construct(int $id, string $title)
     {
         $this->id = $id;
         $this->title = $title;
         $this->tracks = new ArrayCollection();
+    }
+
+    public static function instance(int $id, string $title): Album
+    {
+        return new static($id, $title);
     }
 
     /**
@@ -50,7 +49,7 @@ class Album implements Entity
      *
      * @return Album
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
 
@@ -60,7 +59,7 @@ class Album implements Entity
     /**
      * @return string
      */
-    public function title()
+    public function title(): string
     {
         return $this->title;
     }
@@ -80,7 +79,7 @@ class Album implements Entity
     /**
      * @return Artist
      */
-    public function artist()
+    public function artist(): Artist
     {
         return $this->artist;
     }

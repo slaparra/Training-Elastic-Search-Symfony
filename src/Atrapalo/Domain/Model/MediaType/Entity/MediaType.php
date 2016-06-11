@@ -24,11 +24,16 @@ class MediaType implements Entity
      * @param int    $id
      * @param string $name
      */
-    public function __construct(int $id, string $name)
+    private function __construct(int $id, string $name)
     {
         $this->tracks = new ArrayCollection();
         $this->id = $id;
         $this->name = $name;
+    }
+
+    public static function instance(int $id, string $name): MediaType
+    {
+        return new static($id, $name);
     }
 
     /**

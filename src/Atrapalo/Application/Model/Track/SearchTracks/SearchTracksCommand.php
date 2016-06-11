@@ -9,9 +9,6 @@ use Atrapalo\Application\Model\Command\Command;
  */
 class SearchTracksCommand implements Command
 {
-    /** @var int */
-    private $page;
-
     /** @var string */
     private $playListName;
 
@@ -21,44 +18,56 @@ class SearchTracksCommand implements Command
     /** @var string */
     private $composer;
 
+    /** @var int */
+    private $page;
+
     private function __construct(
-        int $page = 1,
         string $playListName = null,
         string $trackName = null,
-        string $composer = null
+        string $composer = null,
+        int $page = 1
     ) {
-        $this->page = $page;
         $this->playListName = $playListName;
         $this->trackName = $trackName;
         $this->composer = $composer;
+        $this->page = $page;
     }
 
     public static function instance(
-        int $page = 1,
         string $playListName = null,
         string $trackName = null,
-        string $composer = null
+        string $composer = null,
+        int $page = 1
     ): SearchTracksCommand {
-        return new static($page, $playListName, $trackName, $composer);
+        return new static($playListName, $trackName, $composer, $page);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function playListName()
+    {
+        return $this->playListName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function trackName()
+    {
+        return $this->trackName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function composer()
+    {
+        return $this->composer;
     }
 
     public function page(): int
     {
         return $this->page;
-    }
-
-    public function playListName(): string
-    {
-        return $this->playListName;
-    }
-
-    public function trackName(): string
-    {
-        return $this->trackName;
-    }
-
-    public function composer(): string
-    {
-        return $this->composer;
     }
 }

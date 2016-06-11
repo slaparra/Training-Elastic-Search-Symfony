@@ -3,6 +3,7 @@ services:
 #Repository
     atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository:
         class: Atrapalo\Infrastructure\Persistence\Doctrine\DoctrineEntityRepository
+        abstract: true
         arguments:
             - "@doctrine.orm.entity_manager"
 
@@ -21,7 +22,9 @@ services:
     atrapalo.infrastructure.model.track.repository.track_repository:
         class: Atrapalo\Infrastructure\Model\Track\Repository\TrackRepositoryImpl
         parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"
-
+        arguments:
+            - "@ruflin.elastica.search"
+            
     atrapalo.infrastructure.model.playlist.repository.playlist_repository:
         class: Atrapalo\Infrastructure\Model\PlayList\Repository\PlayListRepositoryImpl
         parent: "atrapalo.infrastructure.persistence.doctrine.doctrine_entity_repository"

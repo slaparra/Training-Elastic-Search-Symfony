@@ -131,7 +131,7 @@ class TrackResource
      *
      * @return TrackResource
      */
-    public function setBytes(int $bytes): TrackResource
+    public function setBytes(int $bytes = null): TrackResource
     {
         $this->bytes = $bytes;
 
@@ -171,7 +171,7 @@ class TrackResource
      *
      * @return TrackResource
      */
-    public function setMilliseconds(int $milliseconds): TrackResource
+    public function setMilliseconds(int $milliseconds = null): TrackResource
     {
         $this->milliseconds = $milliseconds;
 
@@ -191,7 +191,7 @@ class TrackResource
      *
      * @return TrackResource
      */
-    public function setUnitPrice(string $unitPrice): TrackResource
+    public function setUnitPrice(string $unitPrice = null): TrackResource
     {
         $this->unitPrice = $unitPrice;
 

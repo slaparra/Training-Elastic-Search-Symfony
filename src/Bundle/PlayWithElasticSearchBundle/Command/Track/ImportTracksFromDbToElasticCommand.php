@@ -3,6 +3,7 @@
 namespace Bundle\PlayWithElasticSearchBundle\Command\Track;
 
 use Atrapalo\Domain\Model\PlayList\Entity\PlayList;
+use Atrapalo\Domain\Model\Track\Entity\Track;
 use Elastica\Client;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -50,6 +51,7 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
         $documents = [];
 
         foreach ($playLists as $playList) {
+            /** @var Track $track */
             foreach ($playList->tracks() as $track) {
                 $documents[] = $this->createTrackDocument(
                     $track->id(),
@@ -57,6 +59,10 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
                     $track->composer(),
                     $track->album()->id(),
                     $track->album()->title(),
+                    $track->genre()->id(),
+                    $track->genre()->name(),
+                    $track->mediaType()->id(),
+                    $track->mediaType()->name(),
                     $playList->id(),
                     $playList->name()
                 );
@@ -72,13 +78,28 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
      * @param string  $composer
      * @param int     $albumId
      * @param string  $albumTitle
+     * @param int     $genreId
+     * @param string  $genreName
+     * @param int     $mediaTypeId
+     * @param string  $mediaTypeName
      * @param int     $playListId
      * @param string  $playListName
      *
      * @return \Elastica\Document
      */
-    public function createTrackDocument($id, $name, $composer, $albumId, $albumTitle, $playListId, $playListName)
-    {
+    public function createTrackDocument(
+        $id,
+        $name,
+        $composer,
+        $albumId,
+        $albumTitle,
+        $genreId,
+        $genreName,
+        $mediaTypeId,
+        $mediaTypeName,
+        $playListId,
+        $playListName
+    ) {
         // Create a document
         $track = [
             'id' => $id,
@@ -90,6 +111,14 @@ class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
             'playList' => [
                 'id' => $playListId,
                 'name' => $playListName
+            ],
+            'genre' => [
+                'id' => $genreId,
+                'name' => $genreName
+            ],
+            'mediaType' => [
+                'id' => $mediaTypeId,
+                'name' => $mediaTypeName
             ],
             'composer' => $composer
         ];

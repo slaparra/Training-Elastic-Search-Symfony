@@ -70,6 +70,18 @@ class Track implements Entity
     }
 
     /**
+     * @param int $id
+     *
+     * @return Track
+     */
+    public function setId(int $id): Track
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function name(): string
@@ -170,9 +182,9 @@ class Track implements Entity
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function milliseconds(): int
+    public function milliseconds()
     {
         return $this->milliseconds;
     }
@@ -190,9 +202,9 @@ class Track implements Entity
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function bytes(): int
+    public function bytes()
     {
         return $this->bytes;
     }
@@ -210,9 +222,9 @@ class Track implements Entity
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function unitPrice(): float
+    public function unitPrice()
     {
         return $this->unitPrice;
     }
