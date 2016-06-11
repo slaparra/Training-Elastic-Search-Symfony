@@ -44,7 +44,7 @@ class SearchTracksCommandHandler implements CommandHandler
 
         $tracks = $this->trackRepository->findByCriteria(
             TrackRepositoryCriteria::instance(
-                $command->playListName(),
+                $command->albumTitle(),
                 $command->trackName(),
                 $command->composer(),
                 1,

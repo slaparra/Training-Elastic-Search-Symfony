@@ -146,3 +146,22 @@ GET playlist/_search?from=0&size=20
 </pre>
 
 
+Suggestion ([fuzzy](https://www.elastic.co/blog/found-fuzzy-search))
+
+The fuzzy query generates all possible matching terms that are within the maximum edit distance specified 
+in fuzziness and then checks the term dictionary to find out which of those generated terms actually exist 
+in the index.
+
+<pre>
+GET /playlist/_search
+{
+  "query": {
+    "match": {
+      "name": {
+        "query": "Madana",
+        "fuzziness": 2
+      }
+    }
+  }
+}
+</pre>

@@ -41,13 +41,33 @@ class TrackRepositoryImpl extends DoctrineEntityRepository implements TrackRepos
 
     public function findByCriteria(TrackRepositoryCriteria $criteria)
     {
-        $qb = new \Elastica\QueryBuilder();
+        $boolQuery = new \Elastica\Query\BoolQuery();
 
-        $query = $criteria->trackName()
-            ? $qb->query()->fuzzy('name', $criteria->trackName())
-            : $qb->query()->match_all();
+        if ($criteria->albumTitle()) {
+            $query = new \Elastica\Query\Match();
+            $query->setFieldQuery('album.title', $criteria->albumTitle());
+            $query->setFieldFuzziness('album.title', 2);
 
-        $this->elasticaSearch->setQuery($query);
+            $boolQuery->addMust($query);
+        }
+
+        if ($criteria->trackName()) {
+            $query = new \Elastica\Query\Match();
+            $query->setFieldQuery('name', $criteria->trackName());
+            $query->setFieldFuzziness('name', 2);
+
+            $boolQuery->addMust($query);
+        }
+
+        if ($criteria->composer()) {
+            $query = new \Elastica\Query\Match();
+            $query->setFieldQuery('composer', $criteria->composer());
+            $query->setFieldFuzziness('composer', 2);
+
+            $boolQuery->addMust($query);
+        }
+
+        $this->elasticaSearch->setQuery($boolQuery);
 
         return $this->buildEntities(
             $this->elasticaSearch->search()->getResults()
@@ -101,6 +121,7 @@ class TrackRepositoryImpl extends DoctrineEntityRepository implements TrackRepos
         $track->setId($data['id']);
         $track->setGenre(Genre::instance($data['genre']['id'], $data['genre']['name']));
         $track->setMediaType(MediaType::instance($data['mediaType']['id'], $data['mediaType']['name']));
+        $track->setComposer($data['composer']);
 
         return $track;
     }

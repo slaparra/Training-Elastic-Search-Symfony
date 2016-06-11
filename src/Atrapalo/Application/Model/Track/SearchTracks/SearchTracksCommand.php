@@ -10,7 +10,7 @@ use Atrapalo\Application\Model\Command\Command;
 class SearchTracksCommand implements Command
 {
     /** @var string */
-    private $playListName;
+    private $albumTitle;
 
     /** @var string */
     private $trackName;
@@ -22,32 +22,32 @@ class SearchTracksCommand implements Command
     private $page;
 
     private function __construct(
-        string $playListName = null,
+        string $albumTitle = null,
         string $trackName = null,
         string $composer = null,
         int $page = 1
     ) {
-        $this->playListName = $playListName;
+        $this->albumTitle = $albumTitle;
         $this->trackName = $trackName;
         $this->composer = $composer;
         $this->page = $page;
     }
 
     public static function instance(
-        string $playListName = null,
+        string $albumTitle = null,
         string $trackName = null,
         string $composer = null,
         int $page = 1
     ): SearchTracksCommand {
-        return new static($playListName, $trackName, $composer, $page);
+        return new static($albumTitle, $trackName, $composer, $page);
     }
 
     /**
      * @return string|null
      */
-    public function playListName()
+    public function albumTitle()
     {
-        return $this->playListName;
+        return $this->albumTitle;
     }
 
     /**

@@ -17,7 +17,7 @@ class SearchTracksController extends Controller
             ->get('atrapalo.application.model.track.search_tracks.search_tracks_command_handler')
             ->handle(
                 SearchTracksCommand::instance(
-                    $request->get('playlist_name'),
+                    $request->get('album_title'),
                     $request->get('track_name'),
                     $request->get('composer'),
                     1
@@ -28,7 +28,7 @@ class SearchTracksController extends Controller
             '@PlayWithElasticSearch/Track/search-tracks.html.twig',
             [
                 'tracks' => $trackResources,
-                'playlist_name' => $request->get('playlist_name'),
+                'album_title' => $request->get('album_title'),
                 'track_name' => $request->get('track_name'),
                 'composer' => $request->get('composer')
             ]
