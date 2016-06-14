@@ -13,9 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateElasticSearchPlayListIndexCommand extends ContainerAwareCommand
 {
-    /** @var Client */
-    private $elasticaClient;
-
     /** @var  Index */
     private $playListIndex;
 
@@ -30,8 +27,7 @@ class CreateElasticSearchPlayListIndexCommand extends ContainerAwareCommand
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->elasticaClient = new Client();
-        $this->playListIndex = $this->elasticaClient->getIndex('playlist');
+        $this->playListIndex = $this->getContainer()->get('ruflin.elastica.client')->getIndex('playlist');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -44,32 +40,32 @@ class CreateElasticSearchPlayListIndexCommand extends ContainerAwareCommand
     {
         // Create the index new
         $this->playListIndex->create(
-            array(
-                'number_of_shards'   => 4,
+            [
+                'number_of_shards' => 4,
                 'number_of_replicas' => 1,
-                'analysis'           => array(
-                    'analyzer' => array(
-                        'indexAnalyzer'  => array(
-                            'type'      => 'snowball',
+                'analysis' => [
+                    'analyzer' => [
+                        'indexAnalyzer' => [
+                            'type' => 'snowball',
                             'tokenizer' => 'standard',
-                            'filter'    => array('lowercase', 'mySnowball'),
-                            'language'  => 'Spanish',
+                            'filter' => ['lowercase', 'mySnowball'],
+                            'language' => 'Spanish',
                             'stopwords' => 'de, en, el, a'
-                        ),
-                        'searchAnalyzer' => array(
-                            'type'      => 'custom',
+                        ],
+                        'searchAnalyzer' => [
+                            'type' => 'custom',
                             'tokenizer' => 'standard',
-                            'filter'    => array('standard', 'lowercase', 'mySnowball')
-                        )
-                    ),
-                    'filter'   => array(
-                        'mySnowball' => array(
-                            'type'     => 'snowball',
+                            'filter' => ['standard', 'lowercase', 'mySnowball']
+                        ]
+                    ],
+                    'filter' => [
+                        'mySnowball' => [
+                            'type' => 'snowball',
                             'language' => 'English'
-                        )
-                    )
-                )
-            ),
+                        ]
+                    ]
+                ]
+            ],
             true //The argument is an OPTIONAL bool=> (true) Deletes index first if already exists (default = false)
         );
     }
@@ -79,11 +75,6 @@ class CreateElasticSearchPlayListIndexCommand extends ContainerAwareCommand
         // Define mapping
         $mapping = new \Elastica\Type\Mapping();
         $mapping->setType($this->playListIndex->getType('track'));
-        $mapping->setParam('index_analyzer', 'indexAnalyzer');
-        $mapping->setParam('search_analyzer', 'searchAnalyzer');
-
-        // Define boost field
-        $mapping->setParam('_boost', array('name' => '_boost', 'null_value' => 1.0));
 
         // Set mapping
         $mapping->setProperties(
