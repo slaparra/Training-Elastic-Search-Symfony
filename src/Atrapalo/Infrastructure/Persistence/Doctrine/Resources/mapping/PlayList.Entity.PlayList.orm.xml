@@ -14,7 +14,7 @@
 
         <field name="name" type="string" column="Name" length="120" nullable="true"/>
 
-        <many-to-many target-entity="Atrapalo\Domain\Model\Track\Entity\Track" field="tracks">
+        <many-to-many target-entity="Atrapalo\Domain\Model\Track\Entity\Track" field="tracks" inversed-by="playLists">
             <join-table name="PlaylistTrack">
                 <join-columns>
                     <join-column name="PlaylistId" referenced-column-name="PlaylistId" />

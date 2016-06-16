@@ -35,6 +35,8 @@
         <many-to-one target-entity="Atrapalo\Domain\Model\Album\Entity\Album" field="album" inversed-by="tracks">
             <join-column name="AlbumId" referenced-column-name="AlbumId" />
         </many-to-one>
+
+        <many-to-many field="playLists" mapped-by="tracks" target-entity="Atrapalo\Domain\Model\PlayList\Entity\PlayList"/>
     </entity>
 
 </doctrine-mapping>
