@@ -12,14 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ImportTracksFromDbToElastic
  */
-class ImportTracksFromDbToElasticCommand extends ContainerAwareCommand
+class ImportTracksFromDbToPlayListIndexCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('bundle:play_with_elasticsearch:import_tracks_from_db_to_elastic')
+            ->setName('bundle:play_with_elasticsearch:import_tracks_from_db_to_playlist_index')
             ->setDescription(
-                'Import Tracks from playlists to index in elasticsearch'
+                'Import Tracks from playlists to index in playlist index'
             );
     }
 

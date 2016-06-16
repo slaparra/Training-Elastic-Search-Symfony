@@ -5,14 +5,9 @@
 The code inside the project works with Ruflin Elastica 3.2 and [Elasticsearch 2.3.2](https://github.com/elasticsearch/elasticsearch/tree/v2.3.2)
 
 
-
-
-
 - [install elasticsearch](app/Resources/docs/elasticsearch.md)
 - [queries with marvel](app/Resources/docs/queries-and-marvel.md)
 - [elasticsearch php clients](app/Resources/docs/elasticsearch-php-clients.md)
-
-
 
 
 ###[Symfony](http://www.symfony.com)

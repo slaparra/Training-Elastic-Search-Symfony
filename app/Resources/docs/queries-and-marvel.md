@@ -11,9 +11,14 @@ Install marvel by command line:
 To access by url:
 http://localhost:9200/_plugin/marvel/sense/index.html
 
-###Other options:
+###Elasticsearch Queries:
 
 Sense (Beta) is a plugin for Google Chrome [chrome web store](https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig)
+
+List all indexes
+<pre>
+GET _cat/indices?v
+</pre>
 
 Get mapping from an index (playlist example)
 <pre>
