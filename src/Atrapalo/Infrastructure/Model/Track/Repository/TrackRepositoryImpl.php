@@ -80,7 +80,7 @@ class TrackRepositoryImpl extends DoctrineEntityRepository implements TrackRepos
 
         $query->setSize($criteria->size());
         $query->setFrom(($criteria->page() - 1) * $criteria->size());
-        $query->addSort(['name' => ['order' => 'asc']]);
+        $query->addSort(['name_not_analyzed' => ['order' => 'asc']]);
 
         return $this->buildEntities(
             $this->elasticaSearch->search()->getResults()

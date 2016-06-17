@@ -23,7 +23,8 @@
         "ruflin/elastica": "^3.2",
         "guzzle/guzzle": "^3.9",
         "twig/twig": "^1.23",
-        "predis/predis": "^1.0"
+        "predis/predis": "^1.0",
+        "cocur/slugify": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

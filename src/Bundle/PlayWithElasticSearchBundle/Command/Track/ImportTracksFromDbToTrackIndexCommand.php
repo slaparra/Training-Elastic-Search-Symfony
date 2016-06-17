@@ -103,6 +103,7 @@ class ImportTracksFromDbToTrackIndexCommand extends ContainerAwareCommand
                 'title' => $albumTitle
             ],
             'name' => $name,
+            'name_not_analyzed' => $name, //$this->getContainer()->get('cocur.slugify')->slugify($name)
             'playList' => $this->buildPlayListToIndex($playLists),
             'genre' => [
                 'id' => $genreId,

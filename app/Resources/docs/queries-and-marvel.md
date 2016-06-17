@@ -137,19 +137,6 @@ GET playlist/_search
 }
 </pre>
 
-Order ([sorting](https://www.elastic.co/guide/en/elasticsearch/guide/current/_sorting.html))
-
-<pre>
-GET playlist/_search?from=0&size=20
-{
-  "from" : 0, "size" : 20, 
-  "query": {
-    "match_all": {}
-  },
-  "sort": {"id":{"order":"asc"}}
-}
-</pre>
-
 
 Suggestion ([fuzzy](https://www.elastic.co/blog/found-fuzzy-search))
 
@@ -188,15 +175,77 @@ POST track_index/_search
             }
          ]
       }
-   },
-   "size": 20,
-   "from": 0,
+   }
+}
+</pre>
+
+
+Order ([sorting](https://www.elastic.co/guide/en/elasticsearch/guide/current/_sorting.html))
+
+<pre>
+GET playlist/_search?from=0&size=20
+{
+  "from" : 0, "size" : 20, 
+  "query": {
+    "match_all": {}
+  },
+  "sort": {"id":{"order":"asc"}}
+}
+</pre>
+
+Sorting fields Not Analyzed [Sorting collations](https://www.elastic.co/guide/en/elasticsearch/guide/current/sorting-collations.html)
+
+Set another field with "index" "not_analyzed" in the mapping and assign the same value at the data loading process:
+
+<pre>
+    'name' => [
+        'type' => 'string',
+        'include_in_all' => true
+    ],
+    'name_not_analyzed' => [
+        'type' => 'string',
+        "index" =>    "not_analyzed"
+    ],
+</pre>
+
+And then sort by the new field:
+
+<pre>
    "sort": [
       {
-         "name": {
+         "name_not_analyzed": {
             "order": "asc"
          }
       }
    ]
+</pre>
+
+
+[Highlight](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html)
+
+<pre>
+OST track_index/_search
+{
+   "query": {
+      "bool": {
+         "must": [
+            {
+               "match": {
+                  "composer": {
+                     "query": "Alanis Morisette",
+                     "fuzziness": 2
+                  }
+               }
+            }
+         ]
+      }
+   },
+   "highlight" : {
+        "pre_tags" : ["&lt;strong&gt;"],
+        "post_tags" : ["&lt;/strong&gt;"],
+        "fields" : {
+            "composer" : {}
+        }
+    }
 }
 </pre>

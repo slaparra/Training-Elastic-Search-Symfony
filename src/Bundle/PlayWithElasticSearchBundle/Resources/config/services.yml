@@ -112,3 +112,6 @@ services:
     ruflin.elastica.search:
         class: Elastica\Search
         arguments: [@ruflin.elastica.client]
+
+    cocur.slugify:
+        class: Cocur\Slugify\Slugify

@@ -100,6 +100,10 @@ class CreateElasticSearchTrackIndexCommand extends ContainerAwareCommand
                     'type' => 'string',
                     'include_in_all' => true
                 ],
+                'name_not_analyzed' => [
+                    'type' => 'string',
+                    "index" =>    "not_analyzed"
+                ],
                 'playList' => [
                     'type' => 'nested',
                     'properties' => [
