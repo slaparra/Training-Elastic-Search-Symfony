@@ -28,7 +28,11 @@ class TrackRepositoryCriteria
     /** @var int */
     private $from;
 
+    /** @var int */
+    private $albumId;
+
     private function __construct(
+        int $albumId = null,
         string $albumTitle = null,
         string $trackName = null,
         string $composer = null,
@@ -37,6 +41,7 @@ class TrackRepositoryCriteria
         int $size = TrackRepository::SIZE,
         int $from = 1
     ) {
+        $this->albumId = $albumId;
         $this->albumTitle = $albumTitle;
         $this->trackName = $trackName;
         $this->composer = $composer;
@@ -47,6 +52,7 @@ class TrackRepositoryCriteria
     }
 
     public static function instance(
+        int $albumId = null,
         string $albumTitle = null,
         string $trackName = null,
         string $composer = null,
@@ -55,11 +61,19 @@ class TrackRepositoryCriteria
         int $size = TrackRepository::SIZE,
         int $from = 1
     ): TrackRepositoryCriteria {
-        return new static($albumTitle, $trackName, $composer, $page, $order, $size, $from);
+        return new static($albumId, $albumTitle, $trackName, $composer, $page, $order, $size, $from);
     }
 
     /**
-     * @return string
+     * @return int|null
+     */
+    public function albumId()
+    {
+        return $this->albumId;
+    }
+
+    /**
+     * @return string|null
      */
     public function albumTitle()
     {

@@ -170,3 +170,33 @@ GET /playlist/_search
   }
 }
 </pre>
+
+
+<pre>
+POST track_index/_search
+{
+   "query": {
+      "bool": {
+         "must": [
+            {
+               "match": {
+                  "composer": {
+                     "query": "Alanis Morisette",
+                     "fuzziness": 2
+                  }
+               }
+            }
+         ]
+      }
+   },
+   "size": 20,
+   "from": 0,
+   "sort": [
+      {
+         "name": {
+            "order": "asc"
+         }
+      }
+   ]
+}
+</pre>

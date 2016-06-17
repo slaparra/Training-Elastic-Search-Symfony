@@ -14,6 +14,6 @@ class AlbumTestBuilder
 
     public static function build(int $id = self::DEFAULT_ID, string $title = self::DEFAULT_TITLE)
     {
-        return new Album($id, $title);
+        return Album::instance($id, $title);
     }
 }

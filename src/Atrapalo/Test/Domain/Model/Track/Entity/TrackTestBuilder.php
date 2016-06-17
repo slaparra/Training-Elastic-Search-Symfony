@@ -20,6 +20,9 @@ class TrackTestBuilder
             $album = AlbumTestBuilder::build();
         }
 
-        return new Track($id, $name, $album);
+        $track = Track::instance($name, $album);
+
+        return $track->setId($id);
+
     }
 }

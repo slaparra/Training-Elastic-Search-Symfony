@@ -49,8 +49,8 @@ class CreateElasticSearchTrackIndexCommand extends ContainerAwareCommand
                             'type' => 'snowball',
                             'tokenizer' => 'standard',
                             'filter' => ['lowercase', 'mySnowball'],
-                            'language' => 'Spanish',
-                            'stopwords' => 'de, en, el, a'
+                            'language' => 'English',
+                            'stopwords' => 'a, the, in'
                         ],
                         'searchAnalyzer' => [
                             'type' => 'custom',

@@ -28,7 +28,7 @@ class TrackRepositoryImpl extends DoctrineEntityRepository implements TrackRepos
         parent::__construct($entityManager);
 
         $this->elasticaSearch = $elasticaSearch;
-        $this->elasticaSearch->addIndex('playlist')->addType('track');
+        $this->elasticaSearch->addIndex('track_index')->addType('track');
     }
 
     /**
@@ -42,6 +42,13 @@ class TrackRepositoryImpl extends DoctrineEntityRepository implements TrackRepos
     public function findByCriteria(TrackRepositoryCriteria $criteria)
     {
         $boolQuery = new \Elastica\Query\BoolQuery();
+
+        if ($criteria->albumId()) {
+            $query = new \Elastica\Query\Term();
+            $query->setParam('album.id', $criteria->albumId());
+
+            $boolQuery->addMust($query);
+        }
 
         if ($criteria->albumTitle()) {
             $query = new \Elastica\Query\Match();
@@ -68,6 +75,12 @@ class TrackRepositoryImpl extends DoctrineEntityRepository implements TrackRepos
         }
 
         $this->elasticaSearch->setQuery($boolQuery);
+
+        $query = $this->elasticaSearch->getQuery();
+
+        $query->setSize($criteria->size());
+        $query->setFrom(($criteria->page() - 1) * $criteria->size());
+        $query->addSort(['name' => ['order' => 'asc']]);
 
         return $this->buildEntities(
             $this->elasticaSearch->search()->getResults()

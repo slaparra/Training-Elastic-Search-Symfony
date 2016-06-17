@@ -3,6 +3,8 @@
 namespace Bundle\PlayWithElasticSearchBundle\Controller\Track;
 
 use Atrapalo\Application\Model\Track\GetTrack\GetTrackCommand;
+use Atrapalo\Application\Model\Track\SearchTracks\SearchTracksCommand;
+use Atrapalo\Infrastructure\Model\Track\Resource\TrackResource;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,9 +20,16 @@ class GetTrackController extends Controller
      */
     public function trackAction($trackId)
     {
+        /** @var TrackResource $trackResource */
         $trackResource = $this->get('atrapalo.application.model.track.get_track.get_track_command_handler')
             ->handle(GetTrackCommand::instance($trackId));
 
-        return $this->render('PlayWithElasticSearchBundle:Playlists:track.html.twig', ['track' => $trackResource]);
+        $albumTracks = $this->get('atrapalo.application.model.track.search_tracks.search_tracks_command_handler')
+            ->handle(SearchTracksCommand::instance(null, null, null, 1, $trackResource->album()->id()));
+
+        return $this->render(
+            'PlayWithElasticSearchBundle:Playlists:track.html.twig',
+            ['track' => $trackResource, 'albumTracks' => $albumTracks]
+        );
     }
 }

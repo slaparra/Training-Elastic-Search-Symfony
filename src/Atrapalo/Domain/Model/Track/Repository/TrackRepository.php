@@ -10,7 +10,7 @@ use Atrapalo\Domain\Model\Track\Entity\Track;
  */
 interface TrackRepository extends EntityRepository
 {
-    const SIZE = 50;
+    const SIZE = 20;
 
     /**
      * @param int $id

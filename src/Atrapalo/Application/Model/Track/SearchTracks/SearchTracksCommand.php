@@ -19,27 +19,41 @@ class SearchTracksCommand implements Command
     private $composer;
 
     /** @var int */
+    private $albumId;
+
+    /** @var int */
     private $page;
 
     private function __construct(
         string $albumTitle = null,
         string $trackName = null,
         string $composer = null,
-        int $page = 1
+        int $page = 1,
+        int $albumId = null
     ) {
         $this->albumTitle = $albumTitle;
         $this->trackName = $trackName;
         $this->composer = $composer;
         $this->page = $page;
+        $this->albumId = $albumId;
     }
 
     public static function instance(
         string $albumTitle = null,
         string $trackName = null,
         string $composer = null,
-        int $page = 1
+        int $page = 1,
+        int $albumId = null
     ): SearchTracksCommand {
-        return new static($albumTitle, $trackName, $composer, $page);
+        return new static($albumTitle, $trackName, $composer, $page, $albumId);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function albumId()
+    {
+        return $this->albumId;
     }
 
     /**

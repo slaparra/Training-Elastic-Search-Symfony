@@ -20,7 +20,7 @@ class SearchTracksController extends Controller
                     $request->get('album_title'),
                     $request->get('track_name'),
                     $request->get('composer'),
-                    1
+                    $this->get('request')->get('page', 1)
                 )
             );
 

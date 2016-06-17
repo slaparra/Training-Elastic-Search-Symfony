@@ -88,9 +88,13 @@ abstract class InMemoryEntityRepository implements EntityRepository
     /**
      * @param array $criteria
      *
+     * @param array $orderBy
+     * @param null  $limit
+     * @param null  $offset
+     *
      * @return mixed
      */
-    protected function findBy(array $criteria)
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
         return array_filter(
             $this->entities->toArray(),
