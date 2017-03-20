@@ -1,4 +1,4 @@
-###ElasticSearch definition:
+### ElasticSearch definition:
 
 Elasticsearch is a distributed RESTful search engine built for the cloud. Features include:
 
@@ -27,7 +27,7 @@ Elasticsearch is a distributed RESTful search engine built for the cloud. Featur
 * Open Source under Apache 2 License.
 
 
-##Install [Elastic Search](http://www.elasticsearch.com) (linux)
+## Install [Elastic Search](http://www.elasticsearch.com) (linux)
 
 **Info**
 * [Download Elastic Search](http://www.elasticsearch.com/downloads/)
@@ -35,11 +35,11 @@ Elasticsearch is a distributed RESTful search engine built for the cloud. Featur
 * [How to install ElasticSearch](https://github.com/elasticsearch/elasticsearch/blob/master/README.textile) (txt from Github)
 * [Guide](http://www.elasticsearch.com/guide/)
 
-###Linux
+### Linux
 * Download .deb and install
 * Folder: **/usr/share/elasticsearch/**
 
-###Mac
+### Mac
 * Previously install java JDK & JRE
 * brew install elasticsearch
 
