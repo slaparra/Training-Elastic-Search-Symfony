@@ -1,4 +1,4 @@
-##Install Marvel [Marvel | Monitor Elasticsearch](https://www.elastic.co/products/marvel)
+## Install Marvel [Marvel | Monitor Elasticsearch](https://www.elastic.co/products/marvel)
 
 Documentation [html](https://www.elastic.co/guide/en/marvel/current/index.html)
 
@@ -11,7 +11,7 @@ Install marvel by command line:
 To access by url:
 http://localhost:9200/_plugin/marvel/sense/index.html
 
-###Elasticsearch Queries:
+### Elasticsearch Queries:
 
 Sense (Beta) is a plugin for Google Chrome [chrome web store](https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig)
 
@@ -90,7 +90,7 @@ GET playlist/_search
 }
 </pre>
 
-##Filter
+## Filter
 
 Exact word, id = 5 ([Term](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html))
 
