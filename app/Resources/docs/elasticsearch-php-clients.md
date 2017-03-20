@@ -1,8 +1,8 @@
 
-##Elasticsearch PHP Clients
-___________________________
+## Elasticsearch PHP Clients
 
-###[Elastica](http://elastica.io)
+
+### [Elastica](http://elastica.io)
 Added to composer.json:
 
 <pre>
@@ -13,7 +13,7 @@ Added to composer.json:
 * [Elastica vs Elasticsearch-php](http://elastica.io/elastica-vs-elasticsearch-php/)
 
 
-###[Elasticsearch-php](https://github.com/elasticsearch/elasticsearch-php)
+### [Elasticsearch-php](https://github.com/elasticsearch/elasticsearch-php)
 
 <pre>
         "elasticsearch/elasticsearch": "~2.0"
@@ -21,7 +21,7 @@ Added to composer.json:
 
 
 
-###[FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle) (FriendsOfSymfony)
+### [FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle) (FriendsOfSymfony)
 
 This [bundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/index.md) provides integration with ElasticSearch and Elastica with Symfony2
 
